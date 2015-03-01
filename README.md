@@ -195,7 +195,7 @@ But in many cases what you really want is not a list but what is called a *set*,
      // DELETE ALL
      $books->delete();             // OR   $bookshop->books=null;
      
-Every property can be one of the following data types:
+Every property can be of one of the following data types:
 
 - int 
 - string
