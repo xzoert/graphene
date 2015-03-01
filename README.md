@@ -206,9 +206,9 @@ Every property can be one of the following data types:
 
 These latter properties can be travelled as well the other way around by adding a '@' to the property name, or by assigning an alias in the definition files (see next section).
 
-To get back the owner of bookshop, for example, you can do:
+To get back all bookshops *owned by* John, for example, you can do:
 
-     echo $bookshop->get('@owner')->firstName;
+     foreach( $john->get('@owner') as $bookshop ) { }
 
 
 
