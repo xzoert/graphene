@@ -22,14 +22,12 @@ If you use a web server to run your scripts, make sure the graphene directory is
 
 Graphene needs a dirctory it can write to, which is called the classpath. When you open a connection to Graphene you must specify as well the location of this directory. It is typically called *model* and placed aside from the *graphene* directory. 
 
-So this is how your script directory should lokk like:
+If now you add a *helloworld.php* file to get through this rief tutorial, your script directory should look like this:
 
-     .
-     ..
-     graphene
-     model
+     
+     /graphene
+     /model
      helloworld.php
-
 
 
 ## Connecting
@@ -46,7 +44,7 @@ So this is how your script directory should lokk like:
         "classpath"=>"./model"
     ));
 
-Replace host, user, password and database name by those of an existing database you have access to. The port can be omitted or set to null if it is the default MySql port (3306). The prefix is only useful if you want several Graphene databases in a single MySql database. The classpath is where Graphene should store its definition files and where it should search your custom classes, if any. We already made the /model/ directory in the Installation section, so let's use it.
+Replace host, user, password and database name by those of an existing database you have access to. The port can be omitted or set to null if it is the default MySql port (3306). The prefix is only useful if you want several Graphene databases in a single MySql database. The classpath is where Graphene should store its definition files and where it should search your custom classes, if any. We already made the *model* directory in the Installation section, so let's use it.
 
 ## Freezing and unfreezing
 
