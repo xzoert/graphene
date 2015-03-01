@@ -169,7 +169,10 @@ But as well they can represent lists, in which case you can access them as if it
      $books[]=$fwake;                   // OR   $books->append($fwake);
      $books[1]=$johnsbook;              // OR   $books->setAt($johnsbook,1);
      // RESET
-     $books=array($fwake,$johnsbook);   // OR   $books->reset(array($fwake,$johnsbook))
+     $books->reset(array(
+          $fwake,
+          $johnsbook
+     ));                                // OR $bookshop->books=array($fwake,$johnsbook);  
      // GET
      echo $books[1]->title;             // OR   echo $books->getAt(1);
      // REMOVE
@@ -179,18 +182,19 @@ But as well they can represent lists, in which case you can access them as if it
      // COUNT
      echo $books->count();
      // DELETE ALL
-     $books=null;                       // OR $books->delete();
+     $books->delete();                  // OR   $bookshop->books=null;
      
 But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'd rather like to use a third series of functions on a property:
 
+     $books=$bookshop->books;
      // ADD
-     $books->add($fwake);    // ADDS IF NOT THERE
+     $books->add($fwake);    // ADD IF NOT THERE
      // REMOVE
-     $books->remove($fwake); // REMOVES IT IF THERE
+     $books->remove($fwake); // REMOVE IT IF THERE
      // CHECK
      echo "Does the set contain 'Finnegans wake'? ",$books->contains($fwake)?"yes":"no";
      // DELETE ALL
-     $books=null;            // OR $books->delete();
+     $books->delete();                  // OR   $bookshop->books=null;
      
 
 
