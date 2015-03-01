@@ -162,7 +162,7 @@ Properties can represent single values, in which case you set and get them as no
      // DELETE
      $john->fisrtName=null;             // OR   $john->set("firstName",null);
 
-But as well they can represent lists, in which case you can access them as if it was a PHP array:
+But as well they can represent lists, in which case you can access them as if they were PHP lists (arrays with numeric indexes):
 
      $books=$bookshop->books;
      // SET
