@@ -25,11 +25,16 @@ Replace host, user, password and database name by those of an existing database 
 
 ## Writing some data
 
-Before writing any data, we have to open a transaction. The transaction will allow you to do all the stuff, having it reflected to the database while you are working with it, avoiding conflicts with concurrent write accesses and gives you the possibility to either commit (publish your chnges to the database) or rollback or error (leave the database untouched). Hoping to have you convinced this is a pretty useful thing, this is how you do it:
+Before writing any data, we have to open a transaction.  
 
     $db->begin();
 
+Being in a transaction allows you to do all the stuff, having it reflected to the database while you are working with it while avoiding conflicts with concurrent write accesses. Furthermore it allows you to either commit (publish your chnges to the database) or rollback on error (and leave the database untouched).
 
+To commit / rollback use:
+
+     $db->commit();
+     $db->rollback();
 
 
 
