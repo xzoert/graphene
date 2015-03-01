@@ -228,6 +228,65 @@ And do the same later on using the *update* function:
 
 ## Querying
 
+Ok, now we can use our simple dataset to make some queries. This one is simplest, and is not even a query:
+     
+     	$bookshop=$db->Bookshop->getBy("name","John's bookshop");
+
+
+A real query looks more like this:
+
+     foreach ($db->select("Book#x and #x.title like 'f%'") as $book) {
+          echo $book->title,PHP_EOL;
+     }
+
+What is called query is the sring you pass to the *select* function. You can query the databse, as we did in the above example, or directly a type:
+
+     foreach ($db->Book->select("#x.title like 'f%'") as $book) {
+          echo $book->title,PHP_EOL;
+     }
+
+In which case we don't have to tell *#x* is a book, since we are calling the Book type. 
+You can even query a (node) property:
+
+     foreach ($bookshop->books->select("#x.title like 'f%'") as $book) {
+          echo $book->title,PHP_EOL;
+     }
+
+A more interesting query is the following:
+
+     $db->select("Person#x and Book#book and Bookshop#bs=? and #bs.books=#book and #book.author=#x",$bookshop);
+
+This can be translated into english as:
+
+     Find a node #x such that: 
+          #x is a Person
+          and
+          there is a Book #book 
+          and 
+          there is a Bookshop#bs being our bookshop (passed parameter)
+          and
+          #book is among the books of #bs
+          and 
+          the author of #book is #x
+
+In other words: it will give you back all authors of any book sold in John's bookshop. The whole thing can be written in a much shorter way like this:
+
+    $db->Person->select("@author.@books=?",$bookshop)
+    
+or, if you get confused by inverse properties, you can make a compromise:
+
+    $db->Person->select("Bookshop#bs=? and #bs.books.author=#x",$bookshop);
+    
+
+
+
+
+
+
+
+
+
+
 
 ## The definition files
 
