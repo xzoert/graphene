@@ -1,0 +1,25 @@
+##### um_User #####
+
+\frozen
+
+string email required unique !
+
+# The password can be update and set, but can not be read, so no amateur
+# programmer has the chance to print it out to the public by mistake.
+string password ui required !
+
+# The nickname can be used to login as an alternative to the email, and has 
+# the advantage that you can safely print it out on a web page without violating
+# the users privacy.
+string nickname unique !
+
+# Following two are 'private' and I give no direct access to them (the little 'n').
+string token n unique !
+datetime tokenExpires n !
+
+# The subscribed groups.
+Group{} groups !                                    
+
+
+
+

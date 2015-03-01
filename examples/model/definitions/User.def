@@ -1,0 +1,16 @@
+##### User #####
+
+# My applications user class. It extends the user manager user by adding
+# some personal data.
+\supertype um_User
+
+# AUTO-GENERATED
+string firstName
+
+# AUTO-GENERATED
+string lastName
+
+# I added delete cascade, so the address is deleted along with the user.
+Adress address delete cascade 
+
+

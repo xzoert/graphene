@@ -1,0 +1,40 @@
+##### um_Group #####
+
+\frozen
+
+# I call the property 'groupName' instead of 'name' since it
+# has to be unique and 'name' is a little too general (I might
+# want to use it elsewhere as well). 
+# In order to make lazy programmers happy nevertheless, I define 'name' 
+# as an alias.
+string groupName as name required unique !
+
+# This property is maintained programmatically and I don't want anybody to
+# mess around with it. That's why I define it as read only (the little 'r').
+Group{} ancestors r !
+
+# The inverse of 'ancestors', i.e. 'descendants'.
+# I set it as read only just for clarity: it is already read only 
+# since its inverse is read only...
+Group{} @ancestors as descendants r !
+
+# The set of privileges granted to this group, as strings. This is a quite
+# simplistic solution (maybe privileges should better be nodes so that 
+# we can attached some metadata to them), but it has the advantage to be 
+# quite efficient, which is probably more important in this context.
+# We can still create later on some metadata linking them to our privileges by name.
+string{} privileges !
+
+# Here as well I define a shorter alias for lazy programmers.
+Group parentGroup as parent !
+
+# The (multiple) inverse of 'parentGroup' aka 'parent', i.e. 'children'.
+# I pedantically set it as 'unique' as an additional check to ensure
+# each group has at most one parent, although this should be achieved already
+# by the fact that 'parentGroup' is single valued... 
+Group{} @parentGroup as children unique !
+
+# Give a nice name to the inverse of 'groups'.
+User{} @groups as members !
+
+

@@ -1,0 +1,19 @@
+##### Adress #####
+
+
+# AUTO-GENERATED
+string street required
+
+# AUTO-GENERATED
+string apartment required
+
+# AUTO-GENERATED
+string city required
+
+# AUTO-GENERATED
+string country required
+
+# AUTO-GENERATED
+User{} @address
+
+

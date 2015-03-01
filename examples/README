@@ -1,0 +1,46 @@
+THE GRAPHENE EXAMPLES
+
+The main purpose of these examples is to illustrate how Graphene can be used,
+so please have a look at the code and comments inside.
+
+The SimpleBookshop example shows some basic data creation and gives a glimpse of 
+what you can do with the query language. 
+The UserManager example instead shows lots of advanced stuff like:
+	- how to use inheritance to build self-contained functional bundles
+	- how to implement recursive serach
+	- how to use effectively restrictions and specifications in the def files
+
+	
+Secondly, since for the moment there are no unity tests, these examples should 
+serve as well as tests. If you change something and run them without problems
+there is a strong chance you didn't break anything.
+
+RUNNING THE EXAMPLES
+
+First of all you have to create a db.json file in the examples directory containing 
+you database connection parameters. Something like:
+	{
+		"host":"localhost",
+		"user":"root",
+		"pwd":"root",
+		"db":"test",
+		"port":null,
+		"prefix":"examples",
+		"classpath":"./model"
+	}
+
+and make sure the database exists, is reacheable, that you have the right to 
+create tables, insert, select, update and so forth.
+
+You can run the examples by the command line (provided you have the php-cli installed)
+by moving to the examples directory and typing:
+
+	php SimpleBookshop.php
+	php UserManager.php
+	
+Or you can call them via HTTP from you browser:
+
+	http://{your-host}/{your-graphene-dir}/examples/SimpleBookshop.php
+	http://{your-host}/{your-graphene-dir}/examples/SimpleBookshop.php
+	
+

@@ -1,0 +1,19 @@
+##### Person #####
+
+
+# AUTO-GENERATED
+string firstName
+
+# AUTO-GENERATED
+string lastName
+
+# AUTO-GENERATED
+Bookshop{} @owner
+
+# AUTO-GENERATED
+int isFamous
+
+# AUTO-GENERATED
+Book{} @author
+
+

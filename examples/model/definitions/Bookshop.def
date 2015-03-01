@@ -1,0 +1,14 @@
+##### Bookshop #####
+
+
+# AUTO-GENERATED
+string name unique
+
+# AUTO-GENERATED
+Person owner
+
+# AUTO-GENERATED
+datetime openSince
+
+# AUTO-GENERATED
+Book{} books
