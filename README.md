@@ -239,7 +239,7 @@ A real query looks more like this:
           echo $book->title,PHP_EOL;
      }
 
-What is called query is the sring you pass to the *select* function. You can query the databse, as we did in the above example, or directly a type:
+What is called query is the string you pass to the *select* function. You can query the database, as we did in the above example, or directly a type:
 
      foreach ($db->Book->select("#x.title like 'f%'") as $book) {
           echo $book->title,PHP_EOL;
@@ -248,9 +248,11 @@ What is called query is the sring you pass to the *select* function. You can que
 In which case we don't have to tell *#x* is a book, since we are calling the Book type. 
 You can even query a (node) property:
 
-     foreach ($bookshop->books->select("#x.title like 'f%'") as $book) {
+     foreach ($bookshop->books->select("title like 'f%'") as $book) {
           echo $book->title,PHP_EOL;
      }
+
+By the way, #x can be omitted (as we did here) when it is the starting point of a relation or property.
 
 A more interesting query is the following:
 
