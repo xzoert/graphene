@@ -159,7 +159,7 @@ Properties can represent single values, in which case you set and get them as no
      // GET
      echo $john->firstName;             // OR   echo $john->get("firstName");
      // DELETE
-     $john->fisrtName=null;             // OR   $john->set("firstName",null);
+     $john->firstName=null;             // OR   $john->set("firstName",null);
 
 But as well they can represent lists, in which case you can access them as if they were PHP lists (arrays with numeric indexes):
 
@@ -175,7 +175,7 @@ But as well they can represent lists, in which case you can access them as if th
      // GET
      echo $books[1]->title;        // OR   echo $books->getAt(1);
      // REMOVE
-     unset($books[1]);             // OR   $books->setAt(null,1);
+     unset($books[1]);             // OR   $books->unsetAt(1);
      // LOOP
      foreach( $books as $book ) {}
      // COUNT
@@ -215,7 +215,8 @@ You can set multiple properties at node creation passing an associative array:
           "prop1"=>"String value",
           "prop2"=>5.8,
           "prop3"=>array(1,2,3)
-     ));                           // OR   $myObject=$db->getType('MyType')->newNode(array(...))
+     ));                           
+     // OR   $myObject=$db->getType('MyType')->newNode(array(...))
 
 And do the same later on using the *update* function:
 
