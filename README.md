@@ -5,7 +5,17 @@ Graph database for PHP + MySql
 
 ## Requirements
 
+This is what you need:
+
+- PHP 5.3 or above (i.e. with namespace support)
+- The mysqli driver
+- Access to a MySql database
+- Some way to run PHP scripts, either through a web server or via the command line
+
 ## Installation
+
+Dowload and unzip graphene 
+
 
 ## Connecting
 
