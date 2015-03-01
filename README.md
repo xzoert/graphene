@@ -151,7 +151,7 @@ Let's add some more objects (or *nodes*) to our story:
 
 So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written by the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this one is also sold in his bookshop. 
 
-We used on purpose various ways to set properties, either at object creation with an associative array, or by simple assignement, or calling the *set* function and finally using the *add* function on the property itself. And of course there are some more. 
+We used on purpose various ways to set properties, and of course there are some more. 
 
 Properties can represent single values, in which case you set and get them as normal PHP object properties:
 
@@ -184,7 +184,7 @@ But as well they can represent lists, in which case you can access them as if th
      // DELETE ALL
      $books->delete();             // OR   $bookshop->books=null;
      
-But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'd rather like to use a third series of functions on a property:
+But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'll rather like to use a third series of functions on a property:
 
      $books=$bookshop->books;
      // ADD
@@ -210,7 +210,21 @@ To get back all bookshops *owned by* John, for example, you can do:
 
      foreach( $john->get('@owner') as $bookshop ) { }
 
+You can set multiple properties at node creation passing an associative array:
 
+     $myObject=$db->MyType(array(
+          "prop1"=>"String value",
+          "prop2"=>5.8,
+          "prop3"=>array(1,2,3)
+     ));                           // OR   $myObject=$db->getType('MyType')->newNode(array(...))
+
+And do the same later on using the *update* function:
+
+     $myObject->update(array(
+          "prop1"=>"String value",
+          "prop2"=>5.8,
+          "prop3"=>array(1,2,3)
+     ));
 
 ## Querying
 
