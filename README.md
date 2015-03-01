@@ -166,36 +166,50 @@ But as well they can represent lists, in which case you can access them as if it
 
      $books=$bookshop->books;
      // SET
-     $books[]=$fwake;                   // OR   $books->append($fwake);
-     $books[1]=$johnsbook;              // OR   $books->setAt($johnsbook,1);
+     $books[]=$fwake;              // OR   $books->append($fwake);
+     $books[1]=$johnsbook;         // OR   $books->setAt($johnsbook,1);
      // RESET
      $books->reset(array(
           $fwake,
           $johnsbook
-     ));                                // OR $bookshop->books=array($fwake,$johnsbook);  
+     ));                           // OR   $bookshop->books=array($fwake,$johnsbook);  
      // GET
-     echo $books[1]->title;             // OR   echo $books->getAt(1);
+     echo $books[1]->title;        // OR   echo $books->getAt(1);
      // REMOVE
-     unset($books[1]);                  // OR   $books->setAt(null,1);
+     unset($books[1]);             // OR   $books->setAt(null,1);
      // LOOP
      foreach( $books as $book ) {}
      // COUNT
      echo $books->count();
      // DELETE ALL
-     $books->delete();                  // OR   $bookshop->books=null;
+     $books->delete();             // OR   $bookshop->books=null;
      
 But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'd rather like to use a third series of functions on a property:
 
      $books=$bookshop->books;
      // ADD
-     $books->add($fwake);    // ADD IF NOT THERE
+     $books->add($fwake);          // ADD IF NOT THERE
      // REMOVE
-     $books->remove($fwake); // REMOVE IT IF THERE
+     $books->remove($fwake);       // REMOVE IT IF THERE
      // CHECK
      echo "Does the set contain 'Finnegans wake'? ",$books->contains($fwake)?"yes":"no";
      // DELETE ALL
-     $books->delete();                  // OR   $bookshop->books=null;
+     $books->delete();             // OR   $bookshop->books=null;
      
+Every property can be one of the following data types:
+
+- int 
+- string
+- float
+- datetime (bound to PHP's DateTime class)
+- node (properties that link from one node to another)
+
+These latter properties can be travelled as well the other way around by adding a '@' to the property name, or by assigning an alias in the definition files (see next section).
+
+To get back the owner of bookshop, for example, you can do:
+
+     echo $bookshop->get('@owner')->firstName;
+
 
 
 ## Querying
