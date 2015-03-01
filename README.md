@@ -129,5 +129,32 @@ And this should be the output:
      John's first name is: John
      Found a person whose first name starts with 'J': John Smith
 
+If you are calling the script through the browser you'll probably want to surroud the whole thing by a <PRE> tag in order to get a decent output.
+
+Let's add some more objects (or *nodes*) to our story:
+
+     $bookshop=$db->Bookshop();
+     $bookshop->owner=$john;
+     $bookshop->name="John's bookshop";
+     $bookshop->openSince=new DateTime('1986-05-13');
+     
+     $joyce=$db->Person(array('firstName'=>'James','lastName'=>'Joyce','isFamous'=>1));
+     $fwake=$db->Book(array('title:en'=>'Finnegans wake','author'=>$joyce));
+     $fwake->set('title:it','La veglia di Finnegan');
+     
+     $johnsbook=$db->Book(array('title'=>'How to run a bookshop','author'=>$john));
+     
+     $bookshop->books->add($fwake);
+     $bookshop->books->add($johnsbook);
+
+So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written y the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this second book is also sold in his bookshop. 
+
+We used on purpose various ways to set properties, either at object creation with an associative array, or by simple assignement, or calling the *set* function and finally using the *add* function on the property itself. Have a look at the Wiki for more details. 
+
+
+
+
+
+
 
 
