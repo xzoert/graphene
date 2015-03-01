@@ -140,8 +140,7 @@ Let's add some more objects (or *nodes*) to our story:
      $bookshop->openSince=new DateTime("1986-05-13");
      
      $joyce=$db->Person(array("firstName"=>"James","lastName"=>"Joyce","isFamous"=>1));
-     $fwake=$db->Book(array("title:en"=>"Finnegans wake","author"=>$joyce));
-     $fwake->set("title:it","La veglia di Finnegan");
+     $fwake=$db->Book(array("title"=>"Finnegans wake","author"=>$joyce));
      
      $johnsbook=$db->Book(array("title"=>"How to run a bookshop","author"=>$john));
      
@@ -149,7 +148,7 @@ Let's add some more objects (or *nodes*) to our story:
      $bookshop->books->add($johnsbook);
 
 
-So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written by the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this one is also sold in his bookshop. 
+So... we have created two persons: John Smith and James Joyce. The first one is the prowd owner of *John's bookshop* (since 1986!). The second one is a famous book writer and his celebrated novel "Finnegans wake" is sold in John's bookshop. This might have inspired John to write a book on his turn about how to run a bookshop, which is the only thing he really knows something about, and of course this one is also sold in his bookshop. 
 
 We used on purpose various ways to set properties, and of course there are some more. 
 
