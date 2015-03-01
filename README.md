@@ -22,7 +22,7 @@ If you use a web server to run your scripts, make sure the graphene directory is
 
 Graphene needs a dirctory it can write to, which is called the classpath. When you open a connection to Graphene you must specify as well the location of this directory. It is typically called *model* and placed aside from the *graphene* directory. 
 
-If now you add a *helloworld.php* file to get through this rief tutorial, your script directory should look like this:
+If now you add a *helloworld.php* file where you can write your first script, this is how your script directory should now look like:
 
      
      /graphene
