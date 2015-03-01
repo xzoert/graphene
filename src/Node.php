@@ -1025,8 +1025,13 @@ class Prop implements \ArrayAccess, \Iterator, \Countable  {
         }
     }
     
+    function unsetAt($idx) {
+        $this->getList()->seek($idx);
+        if( $this->list->valid() ) return $this->_delete($this->list);
+    }
+    
     function offsetUnset($offs) {
-        $this->setAt($offs,null);
+        $this->unsetAt($offs);
     }
     
     private function insertBeforeTriple($tr,$v) {
