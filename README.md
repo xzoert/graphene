@@ -120,7 +120,8 @@ Ok, let's go.
      echo "John's first name is: ",$john->firstName,PHP_EOL;
     
      foreach( $db->select("Person#x and #x.firstName like 'J%'") as $person ) {
-          echo "Found a person whose first name starts with 'J': ", $person->firstName,' ',$person->lastName,PHP_EOL;
+          echo "Found a person whose first name starts with 'J': ", 
+               $person->firstName,' ',$person->lastName,PHP_EOL;
      }
 
 And this should be the output:
