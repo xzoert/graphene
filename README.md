@@ -25,7 +25,9 @@ Replace host, user, password and database name by those of an existing database 
 
 ## Freezing and unfreezing
 
-Graphene can work in two modes: frozen and unfrozen. The first one is good for production, while the second one is very handy during development. It will allow you to create types and properties as you name them in your code. Graphene will try to infer some information from how you are using them and create the definition files in a directory called 'definitions' inside the classpath you provided.
+Graphene can work in two modes: frozen and unfrozen. The first one is good for production, while the second one is very handy during development. It will allow you to create types and properties as you name them in your code. Graphene will try to infer some information from how you are using them and create the definition files in a directory called 'definitions' inside the classpath you provided. 
+
+You should periodically have a look at those files, modify them if you want to and eventually freeze them or freeze some property, so they will not be touched even if Graphene is in unfrozen mode. 
 
 Since we have nothing in the database, nor have we written any definition file, let's start unfreezing Graphene:
 
