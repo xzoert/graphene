@@ -23,7 +23,7 @@ Graph database for PHP + MySql
 
 Replace host, user, password and database name by those of an existing database you have access to. The port can be omitted or set to null if it is the default MySql port (3306). The prefix is only useful if you want several Graphene databases in a single MySql database. The classpath is where Graphene should store its definition files and where it should search your custom classes, if any. We already made the /model/ directory in the Installation section, so let's use it.
 
-## Writing some data
+## Transactions
 
 Before writing any data, we have to open a transaction.  
 
@@ -35,6 +35,16 @@ To commit / rollback use:
 
      $db->commit();
      $db->rollback();
+
+A typical write block is this made like this:
+
+     $db->open();
+     try {
+        // .... do something ...
+    } catch( \Exception $e ) {
+        $db->rollback();
+        throw $e;
+    }
 
 
 
