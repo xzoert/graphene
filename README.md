@@ -36,7 +36,7 @@ To commit / rollback use:
      $db->commit();
      $db->rollback();
 
-A typical write block is this made like this:
+A typical write block is thus made like this:
 
      $db->open();
      try {
