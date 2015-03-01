@@ -10,11 +10,26 @@ This is what you need:
 - PHP 5.3 or above (i.e. with namespace support)
 - The mysqli driver
 - Access to a MySql database
-- Some way to run PHP scripts, either through a web server or via the command line
+- Some way to run PHP scripts, either through a PHP enabled web server or via the command line interface
 
 ## Installation
 
-Dowload and unzip graphene 
+Download and unzip Graphene. 
+
+Copy the *graphene* directory to some directory where you want to create your PHP scripts.
+
+If you use a web server to run your scripts, make sure the graphene directory is readable by the web server.
+
+Graphene needs a dirctory it can write to, which is called the classpath. When you open a connection to Graphene you must specify as well the location of this directory. It is typically called *model* and placed aside from the *graphene* directory. 
+
+So this is how your script directory should lokk like:
+
+     .
+     ..
+     graphene
+     model
+     helloworld.php
+
 
 
 ## Connecting
