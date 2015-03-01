@@ -51,9 +51,9 @@ Replace host, user, password and database name by those of an existing database 
 
 ## Freezing and unfreezing
 
-Graphene can work in two modes: frozen and unfrozen. The first one is good for production, while the second is very handy during development. It will allow you to create types and properties as you name them in your code. Graphene will try to infer some information from how you are using them and create the definition files in a directory called *definitions* inside the classpath you provided (in our case the *model* directory). 
+Graphene can work in two modes: *frozen* and *unfrozen*. The first one is good for production, while the second is very handy during development. It will allow you to create types and properties as you name them in your code. Graphene will try to infer some information from how you are using them and create the definition files in a directory called *definitions* inside the classpath you provided (in our case the *model* directory). 
 
-You should periodically have a look at those files, modify them if you want to and eventually freeze some property or the entire definition file, so they will not be touched even if Graphene is in unfrozen mode. 
+You should periodically have a look at those files, modify them if you want to, throw away useless stuff and eventually freeze some property or the entire definition file when you're happy with it, so they will not be touched anymore even if Graphene is in *unfrozen* mode. 
 
 Since we have nothing in the database, nor have we written any definition file, let's start unfreezing Graphene:
 
@@ -87,7 +87,46 @@ A typical write block is thus made like this:
         throw $e;
     }
 
+## Writing data
 
+Ok, now we're ready for the fun part. Just to summarize: your *helloworld* file should by now look somewhat like this:
+
+     <?php
+     
+     include '../graphene.php';
+     
+     $db=graphene::open(array(
+          "host"=>"localhost",
+          "user"=>"root",
+          "pwd"=>"root",
+          "db"=>"test",
+          "port"=>null,
+          "prefix"=>"",
+          "classpath"=>"./model"
+     ));
+     
+     $db->begin();
+     
+We can avoid the *try / catch* block for the moment, we don't even want to commit at the end of the file. This is a handy way to run the script over and over again without filling your database with junk.
+
+If you try to run the script, it will take some seconds since it has to create the Graphene tables in the targeted database. This will happen only the first time you open the connection.
+
+Ok, let's go.
+
+     $john=$db->Person();
+     $john->firstName="John";
+     $john->lastName="Smith";
+    
+     echo "John's first name is: ",$john->firstName,PHP_EOL;
+    
+     foreach( $db->select("Person#x and #x.firstName like 'J%'") as $person ) {
+          echo "Found a person whose first name starts with 'J': ", $person->firstName,' ',$person->lastName,PHP_EOL;
+     }
+
+And this should be the output:
+
+     John's first name is: John
+     Found a person whose first name starts with 'J': John Smith
 
 
 
