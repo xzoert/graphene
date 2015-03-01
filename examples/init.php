@@ -21,6 +21,9 @@ Some PHP stuff:
 	- get rid of magic quotes etc.
 	- set a basic error handler that transforms them into exceptions
 
+Nothing of this is really needed, I'm just used to it.
+
+- Max Jacob 02 2015
 */
 ERROR_REPORTING(E_ALL);
 ini_set('display_errors', 1);
@@ -42,23 +45,6 @@ function basic_exception_error_handler($errno, $errstr, $errfile, $errline ) {
 }
 set_error_handler('basic_exception_error_handler');
 
-
-/**
-RANDS
-
-Useful function that generates random strings of decidable length.
-
-*/
-function rands($n=8) {
-	static $chars='ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
-	$len=strlen( $chars );
-	$s='';
-	while( $n-- ) {
-		$r=rand(0,$len-1);
-		$s.=substr($chars,$r,1);
-	}
-	return( $s );
-}
 
 
 /**

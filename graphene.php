@@ -34,7 +34,7 @@ Hello, and welcome to Graphene.
     
     For the moment the only tests you can run are the examples. They do test a 
     lot of stuff and if you launch them and they work correctly (no 'Ooops' or 
-    mean exceptions in the output) this should be interpreted as least as a very 
+    mean exceptions in the output) this should be interpreted at least as a very 
     good sign nothing is broken.
     
     On how to run the examples go to the examples directory and read the README 

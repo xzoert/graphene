@@ -42,10 +42,10 @@ function createData($db) {
 	$bookshop->books->add($fwake);
 	$bookshop->books->add($johnsbook);
 	
-	//$db->commit();
-	
 	echo "done.",PHP_EOL,PHP_EOL;
 
+	// not worth committing... I return
+	
 	return $bookshop;
 }
 

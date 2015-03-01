@@ -794,7 +794,7 @@ class Prop implements \ArrayAccess, \Iterator, \Countable  {
         return $res;
     }
     
-    function setAt($v,$idx=0) {
+    function setAt($idx,$v) {
         $count=$this->count();
         if( $idx==$count ) {
             return $this->append($v);
@@ -1021,12 +1021,12 @@ class Prop implements \ArrayAccess, \Iterator, \Countable  {
         if( is_null($offs) ) {
             return $this->append($val);
         } else {
-            return $this->setAt($val,$offs);
+            return $this->setAt($offs,$val);
         }
     }
     
     function offsetUnset($offs) {
-        $this->setAt(null,$offs);
+        $this->setAt($offs,null);
     }
     
     private function insertBeforeTriple($tr,$v) {

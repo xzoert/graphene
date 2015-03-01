@@ -195,7 +195,7 @@ foreach( $users->getByPrivilege("change-database-params") as $u ) {
 }
 
 
-
+////////// CLEANUP ////////////////
 
 // delete all
 echo "Deleting all...";
