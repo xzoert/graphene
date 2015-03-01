@@ -129,7 +129,7 @@ And this should be the output:
      John's first name is: John
      Found a person whose first name starts with 'J': John Smith
 
-If you are calling the script through the browser you'll probably want to surroud the whole thing by a <PRE> tag in order to get a decent output.
+If you are calling the script through the browser you'll probably want to surroud the whole thing by a &lt;PRE&gt; tag in order to get a decent output.
 
 Let's add some more objects (or *nodes*) to our story:
 
