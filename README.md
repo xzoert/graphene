@@ -51,7 +51,7 @@ A typical write block is thus made like this:
 
 Graphene can work in two modes: frozen or unfrozen. The first one is good for production, while the second one is very handy during development. It will allow you to create types and properties as you name them in your code. Graphene will try to infer some information from how you are using them and create the definition files in a directory called 'definitions' inside the classpath you provided.
 
-Since we have nothing in the database, nr have we written any definition file, let's start unfreezing Graphene:
+Since we have nothing in the database, nor have we written any definition file, let's start unfreezing Graphene:
 
     $db->unfreeze();
     
