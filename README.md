@@ -29,7 +29,7 @@ Before writing any data, we have to open a transaction.
 
     $db->begin();
 
-Being in a transaction allows you to do all the stuff, having it reflected to the database while you are working with it while avoiding conflicts with concurrent write accesses. Furthermore it allows you to either commit (publish your chnges to the database) or rollback on error (and leave the database untouched).
+Being in a transaction allows you to do all the stuff, having it reflected to the database while working, but avoiding conflicts with other concurrent write accesses. Furthermore it allows you to either commit (publish your changes to the database) or rollback on error (and leave the database untouched).
 
 To commit / rollback use:
 
