@@ -228,7 +228,7 @@ And do the same later on using the *update* function:
 
 ## Querying
 
-Ok, now we can use our simple dataset to make some queries. This one is simplest, and is not even a query:
+Ok, now we can use our simple dataset to make some queries. This one is the simplest, and is not even a query:
      
      	$bookshop=$db->Bookshop->getBy("name","John's bookshop");
 
