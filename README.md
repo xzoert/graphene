@@ -10,6 +10,7 @@ Graph database for PHP + MySql
 ## Connecting
 
     include 'graphene/graphene.php'
+    
     graphene::open(array(
         "host"=>"localhost",
         "user":"root",
