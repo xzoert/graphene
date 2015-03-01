@@ -137,13 +137,13 @@ Let's add some more objects (or *nodes*) to our story:
      $bookshop=$db->Bookshop();
      $bookshop->owner=$john;
      $bookshop->name="John's bookshop";
-     $bookshop->openSince=new DateTime('1986-05-13');
+     $bookshop->openSince=new DateTime("1986-05-13");
      
-     $joyce=$db->Person(array('firstName'=>'James','lastName'=>'Joyce','isFamous'=>1));
-     $fwake=$db->Book(array('title:en'=>'Finnegans wake','author'=>$joyce));
-     $fwake->set('title:it','La veglia di Finnegan');
+     $joyce=$db->Person(array("firstName"=>"James","lastName"=>"Joyce","isFamous"=>1));
+     $fwake=$db->Book(array("title:en"=>"Finnegans wake","author"=>$joyce));
+     $fwake->set("title:it","La veglia di Finnegan");
      
-     $johnsbook=$db->Book(array('title'=>'How to run a bookshop','author'=>$john));
+     $johnsbook=$db->Book(array("title"=>"How to run a bookshop","author"=>$john));
      
      $bookshop->books->add($fwake);
      $bookshop->books->add($johnsbook);
@@ -151,8 +151,59 @@ Let's add some more objects (or *nodes*) to our story:
 
 So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written by the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this one is also sold in his bookshop. 
 
-We used on purpose various ways to set properties, either at object creation with an associative array, or by simple assignement, or calling the *set* function and finally using the *add* function on the property itself. Have a look at the Wiki for more details. 
+We used on purpose various ways to set properties, either at object creation with an associative array, or by simple assignement, or calling the *set* function and finally using the *add* function on the property itself. And of course there are some more. 
 
+Properties can represent single values, in which case you set and get them as normal PHP object properties:
+
+     // SET
+     $john->firstName="John";           // OR   $john->set("firstName","John");
+     // GET
+     echo $john->firstName;             // OR   echo $john->get("firstName");
+     // DELETE
+     $john->fisrtName=null;             // OR   $john->set("firstName",null);
+
+But as well they can represent lists, in which case you can access them as if it was a PHP array:
+
+     $books=$bookshop->books;
+     // SET
+     $books[]=$fwake;                   // OR   $books->append($fwake);
+     $books[1]=$johnsbook;              // OR   $books->setAt($johnsbook,1);
+     // RESET
+     $books=array($fwake,$johnsbook);   // OR   $books->reset(array($fwake,$johnsbook))
+     // GET
+     echo $books[1]->title;             // OR   echo $books->getAt(1);
+     // REMOVE
+     unset($books[1]);                  // OR   $books->setAt(null,1);
+     // LOOP
+     foreach( $books as $book ) {}
+     // COUNT
+     echo $books->count();
+     // DELETE ALL
+     $books=null;                       // OR $books->delete();
+     
+But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'd rather like to use a third series of functions on a property:
+
+     // ADD
+     $books->add($fwake);    // ADDS IF NOT THERE
+     // REMOVE
+     $books->remove($fwake); // REMOVES IT IF THERE
+     // CHECK
+     echo "Does the set contain 'Finnegans wake'? ",$books->contains($fwake)?"yes":"no";
+     // DELETE ALL
+     $books=null;            // OR $books->delete();
+     
+
+
+## Querying
+
+
+## The definition files
+
+Now it is time to have a look to what has happened in the *model/definitions* directory. It should now contain following files:
+
+     Book.def
+     Bookshop.def
+     Person.def
 
 
 
