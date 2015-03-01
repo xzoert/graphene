@@ -41,6 +41,7 @@ A typical write block is thus made like this:
      $db->open();
      try {
         // .... do something ...
+        $db->commit();
     } catch( \Exception $e ) {
         $db->rollback();
         throw $e;
