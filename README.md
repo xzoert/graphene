@@ -29,11 +29,14 @@ If now you add a *helloworld.php* file to get through this rief tutorial, your s
      /model
      helloworld.php
 
+## Including
+
+That's easy: 
+
+     include 'graphene/graphene.php';
 
 ## Connecting
 
-    include 'graphene/graphene.php';
-    
     $db=graphene::open(array(
         "host"=>"localhost",
         "user"=>"root",
@@ -84,7 +87,7 @@ A typical write block is thus made like this:
         throw $e;
     }
 
-    
+
 
 
 
