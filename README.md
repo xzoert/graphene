@@ -9,16 +9,16 @@ Graph database for PHP + MySql
 
 ## Connecting
 
-    include 'graphene/graphene.php'
+    include 'graphene/graphene.php';
     
-    graphene::open(array(
+    $db=graphene::open(array(
         "host"=>"localhost",
-        "user":"root",
-        "pwd":"root",
-        "db":"test",
-        "port":null,
-        "prefix":"",
-        "classpath":"./model"
+        "user"=>"root",
+        "pwd"=>"root",
+        "db"=>"test",
+        "port"=>null,
+        "prefix"=>"",
+        "classpath"=>"./model"
     ));
 
 
