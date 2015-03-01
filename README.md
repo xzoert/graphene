@@ -149,7 +149,7 @@ Let's add some more objects (or *nodes*) to our story:
      $bookshop->books->add($johnsbook);
 
 
-So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written y the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this second book is also sold in his bookshop. 
+So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written by the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this one is also sold in his bookshop. 
 
 We used on purpose various ways to set properties, either at object creation with an associative array, or by simple assignement, or calling the *set* function and finally using the *add* function on the property itself. Have a look at the Wiki for more details. 
 
