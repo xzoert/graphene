@@ -133,6 +133,7 @@ If you are calling the script through the browser you'll probably want to surrou
 
 Let's add some more objects (or *nodes*) to our story:
 
+
      $bookshop=$db->Bookshop();
      $bookshop->owner=$john;
      $bookshop->name="John's bookshop";
@@ -146,6 +147,7 @@ Let's add some more objects (or *nodes*) to our story:
      
      $bookshop->books->add($fwake);
      $bookshop->books->add($johnsbook);
+
 
 So... we have created two persons: John Smith and James Joyce. The first one is the owner of *John's bookshop* which sells a book written y the second one, who is a famous book writer. This might have inspired John to write a book on his turn about how to run a bookshop, and of course this second book is also sold in his bookshop. 
 
