@@ -263,7 +263,7 @@ This can be translated into english as:
           and
           there is a Book #book 
           and 
-          there is a Bookshop#bs being our bookshop (passed parameter)
+          there is a Bookshop #bs being our bookshop (passed parameter)
           and
           #book is among the books of #bs
           and 
