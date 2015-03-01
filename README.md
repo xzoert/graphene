@@ -52,7 +52,7 @@ To commit / rollback use:
 
 A typical write block is thus made like this:
 
-     $db->open();
+     $db->begin();
      try {
         // .... do something ...
         $db->commit();
