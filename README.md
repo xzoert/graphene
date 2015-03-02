@@ -202,9 +202,9 @@ Every property can be of one of the following data types:
 - string
 - float
 - datetime (bound to PHP's DateTime class)
-- node (properties that link from one node to another)
+- node (properties that link from one node to another, also called *relations*)
 
-These latter properties can be travelled as well the other way around by adding a '@' to the property name, or by assigning an alias in the definition files (see next section).
+Relations can be travelled as well the other way around by adding a '@' to the property name, or by assigning an alias in the definition files (see next section).
 
 To get back all bookshops *owned by* John, for example, you can do:
 
@@ -257,7 +257,7 @@ By the way, #x can be omitted (as we did here) when it is the starting point of 
 
 A more interesting query is the following:
 
-     $db->select("Person#x and Book#book and Bookshop#bs=? and #bs.books=#book and #book.author=#x",$bookshop);
+     Person#x and Book#book and Bookshop#bs=? and #bs.books=#book and #book.author=#x"
 
 This can be translated into english as:
 
@@ -266,7 +266,7 @@ This can be translated into english as:
           and
           there is a Book #book 
           and 
-          there is a Bookshop #bs being our bookshop (passed parameter)
+          there is a Bookshop #bs being the first parameter we'll pass
           and
           #book is among the books of #bs
           and 
