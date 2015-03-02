@@ -37,7 +37,7 @@ That's easy:
 
 ## Connecting
 
-    $db=graphene::open(array(
+    $db=Graphene::open(array(
         "host"=>"localhost",
         "user"=>"root",
         "pwd"=>"root",
@@ -279,17 +279,38 @@ or, if you get confused by inverse properties, you can make a compromise:
 
     $db->Person->select("Bookshop#bs=? and #bs.books.author=#x",$bookshop);
     
+In all cases, the query should return both John Smith and James Joyce in our example dataset.
 
+And to finish the argument let's have a look at a quite complex query:
 
+     Person#x and Bookshop#bookshop and #bookshop.owner=#x and #bookshop.books#book and 
+     #book.author=#x and #bookshop.books#book2 and #book2.author.isFamous=1
 
+In english:
 
+     Find all #x such that:
+          #x is a Person
+          and
+          there is a Bookshop #bookshop
+          and
+          the owner of #bookshop is #x
+          and
+          there is a #book among #bookshop's books
+          and 
+          the author of #book is #x
+          and
+          there is also a #book2 among #bookshops books
+          and the author of #book2 is famous
+          
+More briefly: find all persons that own a bookshop in which a book written by their owns is sold as well as at least one book written by a famous author.
 
+Notice that in this query we do not say that #book and #book2 are not the same book, they could. If we do not want this, we'll have to add:
 
+     and #book!=#book2
 
+Of course the result in our dataset will be again John Smith, since he meets all the conditions.
 
-
-
-
+     
 ## The definition files
 
 Now it is time to have a look to what has happened in the *model/definitions* directory. It should now contain following files:
@@ -297,6 +318,27 @@ Now it is time to have a look to what has happened in the *model/definitions* di
      Book.def
      Bookshop.def
      Person.def
+
+and possibly others if you made some more experiments in your *helloworld.php* file.
+
+Let's go through the Person.def file, that should look somehow like this:
+
+     ##### Person #####
+     
+     # AUTO-GENERATED
+     string firstName
+     
+     # AUTO-GENERATED
+     string lastName
+     
+     # AUTO-GENERATED
+     Bookshop{} @owner
+     
+     # AUTO-GENERATED
+     int isFamous
+     
+     # AUTO-GENERATED
+     Book{} @author
 
 
 
