@@ -1,7 +1,7 @@
 # graphene
 Graph database for PHP + MySql
 
-# Quick tutorial
+# Tutorial
 
 ## Requirements
 
@@ -415,9 +415,36 @@ You can also declare your type as being the subtype of another one (i.e. an exte
      # I added delete cascade, so the address is deleted along with the user.
      Adress address delete cascade 
 
+## Customizing nodes
+
+All nodes you get are normally instances of the *graphene\Node* class, unless you create your own class.
+Try to create a file called *PersonNode.php* in the *model/classes* directory, and paste following code:
+
+     <?php
+     
+     class PersonNode extends \graphene\Node {
+     
+          function sayHello() 
+          {
+               echo "Hello!",PHP_EOL;
+          }
+          
+     }
 
 
+Now in your *helloworld.php* you can call:
 
+     $john->sayHello();
+     
+And he will politely say "Hello!". Of course you can add more interesting functions to the *PersonNode* class, fee free to experiment.
+
+Within the node class you can get the databse connection by calling:
+
+     $this->db();
+
+As well as your node type by calling:
+
+     $this->type();
 
 
 
