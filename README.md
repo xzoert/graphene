@@ -424,7 +424,8 @@ Try to create a file called *PersonNode.php* in the *model/classes* directory, a
 
      <?php
      
-     class PersonNode extends \graphene\Node {
+     class PersonNode extends \graphene\Node 
+     {
      
           function sayHello() 
           {
@@ -438,7 +439,7 @@ Now in your *helloworld.php* you can call:
 
      $john->sayHello();
      
-And he will politely say "Hello!". Of course you can add more interesting functions to the *PersonNode* class, fee free to experiment.
+And he will politely say "Hello!". Of course you can add more interesting functions to the *PersonNode* class, feel free to experiment.
 
 Within the node class you can get the database connection by calling:
 
