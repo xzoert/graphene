@@ -50,9 +50,13 @@ class Syntax {
         }
     }
     
-    public static function typeName($n,$ns='') {
+    public static function typeName($n,$ns='',$phpns=null) {
         if( $n[0]=='_' ) return substr($n,1);
-        else return $ns?$ns.'_'.$n:$n;
+        else {
+            if( $phpns ) $ns=str_replace('\\','_',$phpns);
+            else $ns=$this->_data->ns();
+            return $ns?$ns.'_'.$n:$n;
+        }
     }
     
     public static function relName($n,$ns='') {

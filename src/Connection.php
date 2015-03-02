@@ -23,6 +23,7 @@ require_once 'Type.php';
 require_once 'Node.php';
 require_once 'Def.php';
 require_once 'Query.php';
+require_once 'Syntax.php';
 
 
 
@@ -193,9 +194,10 @@ class Connection {
         
     }
         
-    function getType($name) {
+    function getType($name,$phpns=null) {
         if( !$name ) throw new \Exception('No name.');
-        if( $name[0]=='_' ) $name=substr($name,1);
+        if( $phpns ) $name=Syntax::typeName($name,'',$phpns);
+        else if( $name[0]=='_' ) $name=substr($name,1);
         if( !array_key_exists($name,$this->types) ) {
             $def=$this->_getTypeDefinition($name);
             $tcl=$def->typeClass();

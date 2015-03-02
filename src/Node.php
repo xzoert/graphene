@@ -216,19 +216,22 @@ class Node extends NodeBase {
     
     
     public final function getType($n,$phpns=null) {
-        $db=$this->db();
+        return $this->db()->getType(Syntax::typeName($n,$this->_data->ns(),$phpns));
+            /*
         if( $n[0]=='_' ) return $db->getType($n);
         else {
             if( $phpns ) $ns=str_replace('\\','_',$phpns);
             else $ns=$this->_data->ns();
             return $db->getType($ns?$ns.'_'.$n:$n);
         }
+        */
     }
     
-    
+    /*
     public final function getAs($n) {
         return $this->db()->getType($n)->getNode($this->id());
     }
+    */
     
     private function _cleanupNode() {}
     

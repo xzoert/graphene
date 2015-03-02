@@ -1,5 +1,35 @@
 <?php
 
+/*
+In this example we use a simple user manager made for testing and didactical purposes.
+
+The user manager is made of 4 PHP classes and 2 definition files, which are respectively
+in model/classes/um and model/definitions/um. It is called 'um' and lives in the 
+'um' namespace. This is why, if you want to call the um User type, you have to
+write 'um_User'. Notice that all its properties as well will be in this namespace
+(quite transparently for the user), and that in reality they are 'um_email', 
+'um_nickname' and so forth, what means that they will never conflict with your
+property names.
+
+Have a look at the um classes and definitions, since they really contain a lot of 
+useful stuff, such as recursive tree search and all best practices to be 'inheritable'
+from different namespaces than yours without having to mess around too much with
+namespace issues. 
+
+In this file we use those classes, test them and illustrate a bit how they can be used.
+
+In particular we create a class called User (you'll find the def in the definitions
+directory of course) that extends um_User. We could do the same with um_Group.
+
+This illustrates how it is possible to create sef-contained functional bundles 
+(as the um), nicely incapsulated in an API, and that others can use to add those
+functionalities to their custom nodes. By the way, if you like the user manager 
+feel free to use it in your projects. You'll simply have to copy the two 'um'
+directories in 'definitins' and 'classes' to your classpath directory.
+
+- Max Jacob 02 2015
+*/
+
 require_once 'init.php';
 
 

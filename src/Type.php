@@ -29,8 +29,8 @@ class Type {
     
     public function db() { return $this->_db; }
 
-    public function getType($n) {
-        return $this->_db->getType(Syntax::typeName($n,$this->ns()));
+    public function getType($n,$phpns=null) {
+        return $this->_db->getType(Syntax::typeName($n,$this->ns(),$phpns));
     }
     
     public function _findDef($n,$create=true) {

@@ -17,19 +17,8 @@ there is a strong chance you didn't break anything.
 
 RUNNING THE EXAMPLES
 
-First of all you have to create a db.json file in the examples directory containing 
-you database connection parameters. Something like:
-	{
-		"host":"localhost",
-		"user":"root",
-		"pwd":"root",
-		"db":"test",
-		"port":null,
-		"prefix":"examples",
-		"classpath":"./model"
-	}
-
-and make sure the database exists, is reacheable, that you have the right to 
+First of all you have to edit the init.php file to enter the database connection
+parameters. Make sure the database exists, is reacheable, that you have the right to 
 create tables, insert, select, update and so forth.
 
 You can run the examples by the command line (provided you have the php-cli installed)
