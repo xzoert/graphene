@@ -261,7 +261,7 @@ A more interesting query is the following:
 
 This can be translated into english as:
 
-     Find a node #x such that: 
+     Find all nodes #x such that: 
           #x is a Person
           and
           there is a Book #book 
@@ -289,7 +289,7 @@ And to finish the argument let's have a look at a quite complex query:
 
 In english:
 
-     Find all #x such that:
+     Find all nodes #x such that:
           #x is a Person
           and
           there is a Bookshop #bookshop
