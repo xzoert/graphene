@@ -7,7 +7,7 @@ The SimpleBookshop example shows some basic data creation and gives a glimpse of
 what you can do with the query language. 
 The UserManager example instead shows lots of advanced stuff like:
 	- how to use inheritance to build self-contained functional bundles
-	- how to implement recursive serach
+	- how to implement recursive search
 	- how to use effectively restrictions and specifications in the def files
 
 	
