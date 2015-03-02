@@ -184,7 +184,7 @@ But as well they can represent lists, in which case you can access them as if th
      // DELETE ALL
      $books->delete();             // OR   $bookshop->books=null;
      
-But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding the book twice, unless we want to use the number of occurrences as our in-stock counter, what doesn't seem a very briliant solution to me. When you deal with sets, you'll rather like to use a third series of functions on a property:
+But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding a book twice, unless we want to use the number of occurrences as our in-stock counter, what i'd strongly disencourage. When you deal with sets, you'll rather like to use a third series of functions on a property:
 
      $books=$bookshop->books;
      // ADD
