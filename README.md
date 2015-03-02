@@ -28,6 +28,8 @@ If now you add a *helloworld.php* file where you can write your first script, th
      /graphene
      /model
      helloworld.php
+     
+NOTE: The graphene directory contains some example file that can be recalled via HTTP. Especially if you edit the *init.php* files in the examples to set real database connection parameters, you should avoid to deploy the *graphene/examples* directory to your production server, or make sure it is not reachable (this would be a good idea for the graphene directory as a whole, since there is no reason for it to be called via HTTP).
 
 ## Including
 
