@@ -42,8 +42,8 @@ That's easy:
 
     $db=Graphene::open(array(
         "host"=>"localhost",
-        "user"=>"root",
-        "pwd"=>"root",
+        "user"=>"dummy",
+        "pwd"=>"dummy",
         "db"=>"test",
         "port"=>null,
         "prefix"=>"",
