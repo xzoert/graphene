@@ -29,7 +29,8 @@ If now you add a *helloworld.php* file where you can write your first script, th
      /model
      helloworld.php
      
-NOTE: The graphene directory contains some example file that can be recalled via HTTP. Especially if you edit the *init.php* in the examples to set real database connection parameters, you should avoid to deploy the *graphene/examples* directory to your production server, or at least make sure it is not reachable (this would be a good idea for the *graphene* directory as a whole, since there is no reason for it to be called via HTTP).
+NOTE: The graphene directory contains some example file that can be recalled via HTTP. Especially if you edit the *init.php* in the examples to set real database connection parameters, you should avoid to deploy the *graphene/examples* directory to your production server, or at least make sure it is not reachable.
+In general there is no reason for both the *model* and the *grahene* directory to be reachable via HTTP, so in a production environment it is a good idea to make them unavailable (how to do this depends on your web server).
 
 ## Including
 
