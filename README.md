@@ -438,7 +438,7 @@ Now in your *helloworld.php* you can call:
      
 And he will politely say "Hello!". Of course you can add more interesting functions to the *PersonNode* class, fee free to experiment.
 
-Within the node class you can get the databse connection by calling:
+Within the node class you can get the database connection by calling:
 
      $this->db();
 
