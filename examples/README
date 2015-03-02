@@ -33,3 +33,7 @@ Or you can call them via HTTP from you browser:
 	http://{your-host}/{your-graphene-dir}/examples/UserManager.php
 	
 
+WARNING
+
+Do not keep the examples with a valid init.php file on your production server...!
+
