@@ -20,7 +20,7 @@ Copy the *graphene* directory to some directory where you want to create your PH
 
 If you use a web server to run your scripts, make sure the graphene directory is readable by the web server.
 
-Graphene needs a dirctory it can write to, which is called the classpath. When you open a connection to Graphene you must specify as well the location of this directory. It is typically called *model* and placed aside from the *graphene* directory. 
+Graphene needs a directory it can write to, which is called the classpath. When you open a connection to Graphene you must specify as well the location of this directory. It is typically called *model* and placed aside from the *graphene* directory. 
 
 If now you add a *helloworld.php* file where you can write your first script, this is how your script directory should now look like:
 
@@ -358,7 +358,7 @@ instead of:
      
 Furthermore we added an exclamation mark at the end of the line, which indicates the property is *frozen* and Graphene should not adapt its definition anymore (but rather throw an error if it is violated). 
 
-Let's see what graphene did in *Book.def*:
+Let's see what Graphene did in *Book.def*:
 
      ##### Book #####
      
@@ -373,7 +373,7 @@ Let's see what graphene did in *Book.def*:
 
 As you can notice, Graphene thinks the title and author are required fields. This is because every time we created a *Book* in our example these two properties have been passed as initialization arguments. Is it right or is he not? Up to you to decide... or leave it as it is and, if you happen to create a Book without any of these arguments, Graphene will relax the constraint unless you freeze.
 
-This is an example of a quite refined definition file you will find in the *UserManager* example in the graphene examples directory.
+This is an example of a quite refined definition file you will find in the *UserManager* example in the graphene *examples* directory.
 
      ##### um_User #####
      
