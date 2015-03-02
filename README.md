@@ -164,16 +164,17 @@ Properties can represent single values, in which case you set and get them as no
 But as well they can represent lists, in which case you can access them as if they were PHP lists (arrays with numeric indexes):
 
      $books=$bookshop->books;
-     // SET
+     // INSERT / UPDATE
      $books[]=$fwake;              // OR   $books->append($fwake);
      $books[1]=$johnsbook;         // OR   $books->setAt($johnsbook,1);
+     $books->prepend($fwake,0);
      // RESET
      $books->reset(array(
           $fwake,
           $johnsbook
      ));                           // OR   $bookshop->books=array($fwake,$johnsbook);  
      // GET
-     echo $books[1]->title;        // OR   echo $books->getAt(1);
+     echo $books[1]->title;        // OR   echo $books->getAt(1)->title;
      // REMOVE
      unset($books[1]);             // OR   $books->unsetAt(1);
      // LOOP
