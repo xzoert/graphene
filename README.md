@@ -1,7 +1,7 @@
 # graphene
 Graph database for PHP + MySql
 
-# Getting started
+# Quick tutorial
 
 ## Requirements
 
