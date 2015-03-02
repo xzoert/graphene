@@ -92,7 +92,7 @@ A typical write block is thus made like this:
 
 ## Writing data
 
-Ok, now we're ready for the fun part. Just to summarize: your *helloworld* file should by now look somewhat like this:
+Ok, now we're ready for the fun part. Just to summarize: your *helloworld.php* file should by now look somewhat like this:
 
      <?php
      
@@ -100,8 +100,8 @@ Ok, now we're ready for the fun part. Just to summarize: your *helloworld* file 
      
      $db=graphene::open(array(
           "host"=>"localhost",
-          "user"=>"root",
-          "pwd"=>"root",
+          "user"=>"dummy",
+          "pwd"=>"dummy",
           "db"=>"test",
           "port"=>null,
           "prefix"=>"",
