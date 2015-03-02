@@ -30,6 +30,6 @@ by moving to the examples directory and typing:
 Or you can call them via HTTP from you browser:
 
 	http://{your-host}/{your-graphene-dir}/examples/SimpleBookshop.php
-	http://{your-host}/{your-graphene-dir}/examples/SimpleBookshop.php
+	http://{your-host}/{your-graphene-dir}/examples/UserManager.php
 	
 
