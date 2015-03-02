@@ -236,8 +236,7 @@ Ok, now we can use our simple dataset to make some queries. This one is the simp
      
      	$bookshop=$db->Bookshop->getBy("name","John's bookshop");
 
-
-A real query looks more like this:
+The *getBy* type function is very handy and you'll use it over and over again, but it is quite limited. To really query the database you use the *select* function:
 
      foreach ($db->select("Book#x and #x.title like 'f%'") as $book) {
           echo $book->title,PHP_EOL;
