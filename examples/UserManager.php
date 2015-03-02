@@ -13,7 +13,7 @@ property names.
 
 Have a look at the um classes and definitions, since they really contain a lot of 
 useful stuff, such as recursive tree search and all best practices to be 'inheritable'
-from different namespaces than yours without having to mess around too much with
+from different namespaces than yours without having troubles with
 namespace issues. 
 
 In this file we use those classes, test them and illustrate a bit how they can be used.
