@@ -1,6 +1,6 @@
 <?php
 
-/**   IMPORTANT NOTE FOR CONTRIBUTORS
+/*   IMPORTANT NOTE FOR CONTRIBUTORS
 
 Hello, and welcome to Graphene.
 
@@ -50,10 +50,16 @@ Hello, and welcome to Graphene.
 */
 
 
+/**
+\mainpage Graphene Reference
 
+*/
 
 require_once 'src/Connection.php';
 
+/**
+@brief The connection factory.
+*/
 
 class Graphene 
 {
@@ -61,6 +67,41 @@ class Graphene
     private static $connections=array();
     private static $autoloading=false;
     
+    /**
+    @brief Opens a database connection.
+    
+    @param $params An associative array containing the connection params.
+    
+    @return a graphene::Connection object.
+    
+    For example:
+    
+        $db=Graphene::open(array(
+            "host"=>"localhost",
+            "user"=>"dummy",
+            "pwd"=>"dummy",
+            "db"=>"test",
+            "port"=>null,
+            "prefix"=>"",
+            "classpath"=>"./model"
+        ));
+     
+     The host, user, pwd and db name must e those of a MySql database you have 
+     access to.
+     
+     The port can be omitted or set to null, in which case the default MySql 
+     port (3306) will be used. 
+     
+     The prefix also is optional and only useful if 
+     you want several Graphene databases in a single MySql database: if you the
+     prefix will be added to the name of all grahene tables, so there can be
+     several sets of such tables you connect to with the same database params
+     but with a different prefix.
+     
+     The classpath is where Graphene should store its definition files and where 
+     it should search your custom classes, if any.
+        
+    */
     public static function open($params) 
     {
         $id='k'.count(self::$connections);

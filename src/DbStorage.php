@@ -1,7 +1,7 @@
 <?php 
 
 
-/**
+/*
 NOTE: This class is still in slug_case as it was at the origins.
 However all functions called by the higher level (Connection, Type, Node, Def etc.)
 have been wrapped in their camelCase version, and this should ensure that adapting this code 
@@ -15,7 +15,7 @@ namespace graphene;
 
 require_once __DIR__.'/Storage.php';
 
-/** class \graphene\DbStorage
+/* class \graphene\DbStorage
 
 This class extends Storage and does in-memory caching of the nodes got from the database.
 It does not contain any SQL, this is demanded to its specializations (as MySql is).

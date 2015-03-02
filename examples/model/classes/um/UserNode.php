@@ -17,12 +17,25 @@ class UserNode extends \graphene\Node {
 	}
 	
 	function login() {
-		if( $this->tokenIsValid() ) {
-			$this->refreshToken($this->type()->getExpirationTime());
-			return $this->data()->token;
-		} else {
-			return $this->getNewToken($this->type()->getExpirationTime());
-		}
+        $token=null;
+        // we set a begin / commit block, so the caller must not bother 
+        // about starting a transaction just to get the user logged in
+        // and if we already are in a transaction this will do no harm
+        $db=$this->db();
+        $db->begin();
+        try {
+            if( $this->tokenIsValid() ) {
+                $this->refreshToken($this->type()->getExpirationTime());
+                $token=$this->data()->token;
+            } else {
+                $token=$this->getNewToken($this->type()->getExpirationTime());
+            }
+            $db->commit();
+        } catch( \Exception $e ) {
+            $db->rollback();
+            throw $e;
+        }
+        return $token;
 	}
 	
 	function hasPrivilege($privilege) {
@@ -33,7 +46,18 @@ class UserNode extends \graphene\Node {
 	}
 	
 	function logout() {
-		$this->data()->token=null;
+        // we set a begin / commit block, so the caller must not bother 
+        // about starting a transaction just to get the user logged out
+        // and if we already are in a transaction this will do no harm
+        $db=$this->db();
+        $db->begin();
+        try {
+            $this->data()->token=null;
+            $db->commit();
+        } catch( \Exception $e ) {
+            $db->rollback();
+            throw $e;
+        }
 	}
 	
 	function tokenIsValid() {

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
 NOTE: the whole code here is still open to the possibility of having untyped nodes. 
 This feature is not yet made available since it hasn't been tested enough and as well 
 because the use cases aren't yet very clear to me.
@@ -9,13 +9,14 @@ because the use cases aren't yet very clear to me.
 */
 
 
-/** class graphene\Connection
+/*
 
 It brings together the DbStorage (MySql) with the whole type mechanism.
 It is the public API for the graphene database connection.
 
 - Max Jacob 02 2015
 */
+
 namespace graphene;
 
 require_once 'MySql.php';
@@ -26,6 +27,12 @@ require_once 'Query.php';
 require_once 'Syntax.php';
 
 
+/**
+@brief The database connection.
+
+
+
+*/
 
 class Connection {
 
@@ -40,6 +47,19 @@ class Connection {
     private $id;
     private $untypedNode;
 
+    
+    /**
+    @brief Add other classpaths.
+    
+    @param $path A string with the directory path.
+    
+    If you happen to have several graphene bundles placed in different places,
+    you can add their classpaths using this function.
+    
+    If the connection is unfrozen, the def files generated will be in any case
+    placed in the first classpath (the one passed to the Graphene::open function).
+    
+    */
     public function addClasspath($path) {
         if( !array_key_exists($path,$this->classPath) ) {
             if( is_dir($path) ) $this->classPath[$path]=1;
@@ -119,6 +139,9 @@ class Connection {
         $this->types['Untyped']=$this->untypedNode;
     }
     
+    /**
+    @brief Close the connection.
+    */
     function close() {
         try {
             $this->storage->closeConnection();
@@ -126,23 +149,42 @@ class Connection {
         \graphene::_close($this->id);
     }
     
+    /**
+    @brief Tells if the connection is frozen or not.
+    
+    @return int
+    
+    @sa freeze unfreeze
+    */
     function isFrozen() {
         return $this->frozen;
     }
     
+    /**
+    @brief Freezes the database.
+    */
     function freeze() {
         $this->frozen=true;                        
     }
     
+    /**
+    @brief Unfreezes the database.
+    */
     function unfreeze() {
         $this->frozen=false;
     }
 
+    /**
+    @brief Begins a transaction.
+    */
     function begin() {
         if( $this->transaction_level===0 ) $this->storage->start_writing();
         $this->transaction_level++;
     }
 
+    /**
+    @brief Commits the transaction.
+    */
     public function commit() {
         if( $this->transaction_level>0 ) {
             $this->transaction_level--;
@@ -150,6 +192,9 @@ class Connection {
         }
     }
     
+    /**
+    @brief Rolls back the transaction.
+    */
     public function rollback() {
         if( $this->transaction_level>0 ) {
             $this->storage->rollback();
@@ -157,6 +202,21 @@ class Connection {
         }
     }
     
+    /**
+    @brief Shortcut for getType().
+    
+    @param $n The type name.
+    
+    @return Type
+    
+    This allows you to do:
+        
+        $db->Person;
+        
+    instead of:
+    
+        $db->getType('Person');
+    */
     function __get($n) {
         try {
             return $this->getType($n);
@@ -172,6 +232,22 @@ class Connection {
         }
     }
     
+    /**
+    @brief Shortcut for creating / getting nodes from types.
+    
+    @param $n The type name
+    @param $args Either nothing or an associative array to create a new node
+    or an identifier to get an existing one.
+    
+    @return Node
+    
+    This allows you to do things like:
+    
+        $john=$db->Person();
+        $john=$db->Person(array("firstName"=>"John"));
+        $john=$db->Person(157);
+    
+    */
     function __call($n,$args) {
         try {
             $type=$this->getType($n);
@@ -194,6 +270,17 @@ class Connection {
         
     }
         
+    /**
+    @brief Returns a node type by name.
+    
+    @param $name The type name
+    @param $phpns The PHP namespace relatively to which the name is given. This is
+    useful only if ypu are extending a node and plan to be inherited from a different
+    namespace than yours... so quite advanced stuff.
+    
+    @return Type
+    
+    */
     function getType($name,$phpns=null) {
         if( !$name ) throw new \Exception('No name.');
         if( $phpns ) $name=Syntax::typeName($name,'',$phpns);
@@ -209,6 +296,17 @@ class Connection {
         }
     }
     
+    /**
+    @brief Performs a query.
+    
+    @param $s The query
+    @param $params Optional parameters to fill ut the '?' in the query. It can be 
+    a single value if there is only one '?', or an array containing several values
+    if there are more, in the same order as they appear in the query.
+    
+    @return an \\Iterable and \\Cuntable result set over the matched nodes.    
+    
+    */
     function select($s='',$params=null) {
         if( array_key_exists($s,$this->queries) )$q=$this->queries[$s];
         else {
@@ -218,7 +316,7 @@ class Connection {
         return $q->execute($params);
     }
     
-    /**
+    /*
     Set to private in order to hide untyped nodes. 
     
     - Max Jacob 02 2015
@@ -227,10 +325,16 @@ class Connection {
         return new DataNode($this,(int)$id,$this->untypedNode);
     }
     
+    /**
+    @brief Gives back the rough MySql connection.
+    */
     function getMySqlConnection() {
         return $this->storage->get_mysqli();
     }
     
+    /**
+    @brief Gives back a node by its id.
+    */
     function getNode($i) {
         $id=(int)$i;
         if( $id<=0 ) throw new \Exception('Invalid id: '.$i);
@@ -242,8 +346,13 @@ class Connection {
             return new DataNode($this,$id,$this->untypedNode);
         }
     }
+ 
+    /*
+    Set to private in order to hide untyped nodes. 
     
-    function newNode($params=null) {
+    - Max Jacob 02 2015
+    */
+    private function newNode($params=null) {
         $id=$this->storage->newId();
         $node=new DataNode($this,$id,$this->untypedNode);
         if( is_array($params) ) {
@@ -254,22 +363,6 @@ class Connection {
         return $node;
     }
 
-    public function offsetExists( $offset ) {
-        return 1;    
-    }
-    
-    public function offsetGet ( $offset ) {
-        return $this->type($offset);
-    }
-    
-    public function offsetSet( $offset, $value ) {
-        throw new \Exception( 'Can not set types.' );
-    }
-    
-    public function offsetUnset( $offset ) {
-        throw new \Exception( 'Can not unset types.' );
-    }
-    
     function _storage() {
         return $this->storage;
     }

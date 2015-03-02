@@ -17,18 +17,34 @@ namespace graphene;
 require_once 'Node.php';
 require_once 'Syntax.php';
 
+/**
+@brief A node type.
+*/
+
 class Type {
 
     private $_db;
     private $_def;
     private $_queries;
     
+    /**
+    @brief Gives back to type's namespace (in graphene notation).
+    */
     public function ns() { return $this->_def->ns(); }
     
+    /**
+    @brief Gives back to type's name.
+    */
     public function name() { return $this->_def->name(); }
     
+    /**
+    @brief Gives back to type's database Connection.
+    */
     public function db() { return $this->_db; }
 
+    /**
+    @brief Gives back a type by name relatively to this type's namespace.
+    */
     public function getType($n,$phpns=null) {
         return $this->_db->getType(Syntax::typeName($n,$this->ns(),$phpns));
     }
@@ -52,9 +68,15 @@ class Type {
         $this->_init();
     }
     
+    /**
+    @brief To be overloaded: will be invoked at object creation.
+    */
     protected function _init() {}
     
 
+    /**
+    @brief Create a new node of this type.
+    */
     public function newNode($args=null) {
         return $this->_create($args);
     }
@@ -109,6 +131,9 @@ class Type {
         return $r;
     }
     
+    /**
+    @brief Gives back the node having a given value on a given field.
+    */
     public function getBy($field,$value) {
         if( !$this->_def->isFrozen() ) {
             $n=$field;
@@ -145,6 +170,9 @@ class Type {
     }
     
     
+    /**
+    @brief Tells if the type is frozen.
+    */
     public function isFrozen() {
         return $this->_def->isFrozen();
     }
@@ -160,6 +188,9 @@ class Type {
     }
     
     
+    /**
+    @brief Gives back a node by id.
+    */
     public function getNode($i) {
         $node=$this->_get($i);
         return $node;
@@ -190,8 +221,10 @@ class Type {
         return new $c($node,$type);
     }
     
-    /**
+    /*
     Set to private in order to hide this feature.
+    
+    - Max Jacob 03 2015
     */
     private function addNode($i,$args=null) {
         return $this->_add($i,$args);
@@ -364,6 +397,9 @@ class Type {
     }
 
     
+    /**
+    @brief Performs a query on the nodes of this type.
+    */
     function select($filter=null,$filterParams=null) {
         if( array_key_exists($filter,$this->_queries) )$q=$this->_queries[$filter];
         else {
