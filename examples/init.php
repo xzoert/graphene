@@ -16,8 +16,8 @@ require_once '../graphene.php';
 // open the connection
 $db=graphene::open(array(
     "host"=>"localhost",
-    "user"=>"root",
-    "pwd"=>"root",
+    "user"=>"dummy",
+    "pwd"=>"dummy",
     "db"=>"test",
     "prefix"=>"examples",
     "classpath"=>"./model"
