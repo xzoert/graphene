@@ -347,7 +347,7 @@ You can modify this file. For example we might decide that in our simple world e
 
      Bookshop @owner as bookshop !
 
-Now @owner han become a single valued property and, since we were editing it, we added as well a nice synonym (bookshop), so from now on to get the bookshop owned by a person we can simply do:
+Now *@owner* has become a single valued property and, since we were editing it, we added as well a nice synonym (*bookshop*), so from now on to get the bookshop owned by a person we can simply do:
 
      $john->bookshop;
 
@@ -370,7 +370,7 @@ Let's see what graphene did in *Book.def*:
      # AUTO-GENERATED
      Bookshop{} @books
 
-As you can notice, Graphene thinks the title and author are required fields. This is because every time we created a *Book* in our example these two properties have been passed as initialization arguments. Is it right or is he not? Up to you to decide... or leave it as it is and if you happen to create a Book without any of these arguments, graphene will relax the constraint unless you freeze.
+As you can notice, Graphene thinks the title and author are required fields. This is because every time we created a *Book* in our example these two properties have been passed as initialization arguments. Is it right or is he not? Up to you to decide... or leave it as it is and, if you happen to create a Book without any of these arguments, Graphene will relax the constraint unless you freeze.
 
 This is an example of a quite refined definition file you will find in the *UserManager* example in the graphene examples directory.
 
@@ -397,7 +397,7 @@ This is an example of a quite refined definition file you will find in the *User
      Group{} groups !                                    
      
 
-You can also declare your type as being the subtype of another one (i.e. it extends it), as in this one again picked up from the *UserManager* example:
+You can also declare your type as being the subtype of another one (i.e. an extension), as in this one again picked up from the *UserManager* example:
 
      ##### User #####
      
