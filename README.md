@@ -342,7 +342,7 @@ Let's go through the Person.def file, that should look somehow like this:
      Book{} @author
 
 
-This is what Graphene understood so far about Persons. The lines starting with '#' are comments. The two curly brackets after Bookshop and Book indicate that it is a set and not a single valued property. Lists insted (where permissions are allowed) are indicated by square brackets ('[]').
+This is what Graphene has understood so far about Persons. The lines starting with '#' are comments. The two curly brackets after Bookshop and Book indicate that it is a set and not a single valued property. Lists insted (where repetitions are allowed) are indicated by square brackets ('[]').
 
 You can modify this file. For example we might decide that in our simple world each person can have at most one bookshop and change the line like this:
 
