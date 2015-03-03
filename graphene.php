@@ -53,7 +53,28 @@ Hello, and welcome to Graphene.
 /**
 \mainpage Graphene Reference
 
+Blah blah.....
+
 */
+
+/**
+
+Blah blah...
+
+@page def-files Definition files
+@brief The syntax of the def(inition) files
+
+*/
+
+/**
+
+Blah blah...
+
+@page gql The Graphene Query Language
+@brief The syntax of the query language
+
+*/
+
 
 require_once 'src/Connection.php';
 
@@ -61,7 +82,7 @@ require_once 'src/Connection.php';
 @brief The connection factory.
 */
 
-class Graphene 
+class graphene 
 {
     
     private static $connections=array();
@@ -76,7 +97,7 @@ class Graphene
     
     For example:
     
-        $db=Graphene::open(array(
+        $db=graphene::open(array(
             "host"=>"localhost",
             "user"=>"dummy",
             "pwd"=>"dummy",

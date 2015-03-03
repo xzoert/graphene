@@ -100,7 +100,8 @@ class UserNode extends \graphene\Node {
 	}
 
 	private function getNewToken($seconds) {
-		while (1) {
+	    $attempts=10;
+		while ($attempts--) {
 			$token=$this->rands(12);
 			try {
 				$this->data()->token=$token; 
@@ -115,14 +116,12 @@ class UserNode extends \graphene\Node {
 	
 	
 	private function _emailValidator($v) {
-		if (!filter_var($v, FILTER_VALIDATE_EMAIL) === false) {
-		  return;
-		} else {
+		if (filter_var($v, FILTER_VALIDATE_EMAIL)===false) {
 			throw new \Exception( 'Invalid email: '.$v );
-		}
+		} 
 	}
 	
-	
+	                     
 }
 
 

@@ -40,7 +40,7 @@ That's easy:
 
 ## Connecting
 
-    $db=Graphene::open(array(
+    $db=graphene::open(array(
         "host"=>"localhost",
         "user"=>"dummy",
         "pwd"=>"dummy",

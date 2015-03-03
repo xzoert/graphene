@@ -244,8 +244,10 @@ abstract class Storage {
     
 }
 
-
-abstract class StorageIterator implements \ArrayAccess, \SeekableIterator, \Countable {
+/**
+@brief The result of a query.
+*/
+abstract class ResultSet implements \ArrayAccess, \SeekableIterator, \Countable {
 
     /*
 
@@ -260,7 +262,7 @@ abstract class StorageIterator implements \ArrayAccess, \SeekableIterator, \Coun
     }
     */
     
-    /**
+    /*
     *    Must return an array in the form:
     *        id: the triple identifier
     *        sub: the id of the subject
