@@ -120,7 +120,7 @@ The type name will be interpreted as relative to the current type's namespace.
 
 The syntax of a property definition is:
 
-    PROP_DEF := (NODE_TYPE|DATA_TYPE)[CARDINALITY] NAME ["as" ALIAS] [MASK] [FLAGS]+ ["!"]
+    PROP_DEF := (NODE_TYPE|DATA_TYPE)[CARDINALITY] NAME ["as" ALIAS] [MASK] [FLAGS] ["!"]
 
 
 NODE_TYPE is the type of node that is expected as value of that property. 
@@ -132,8 +132,8 @@ Indicates that the \em owner property should have Person nodes as values.
 
 @sa \ref type-names
 
-For data properties (i.e. not node properties), you write the datatype, which 
-is one among following:
+For data properties (i.e. not node properties), you write the insead th DATA_TYPE, 
+which is one among following:
 
 - int
 - float                                       
@@ -162,7 +162,7 @@ case letter. It can also be the name of an inverse property, as for example:
     Group{} @member
 
 In these cases (as well as in others) it is convenient to add an alias to make the
-name more compehensible, like:
+name more comprehensible, like:
 
     #### User ####
     
@@ -179,13 +179,13 @@ don't want him to see at all, as it happes with private properties for PHP class
 
 The MASK is a character combination of any of the following:
 
-- "r" for read
-- "i" for insert
-- "u" for update
-- "d" for delete
-- "w" for insert + update + delete
-- "f" full access (the default)
-- "n" no access at all
+- "r" : for read
+- "i" : for insert
+- "u" : for update
+- "d" : for delete
+- "w" : for insert + update + delete
+- "f" : full access (the default)
+- "n" : no access at all
 
 To make a property read only, for example, you can write:
 
@@ -269,10 +269,115 @@ other properties can be added dynamically if Graphene is in \em unfrozen mode.
 
 /**
 
-The query language...
+
+NOTE: The Graphene Query Language is still at it's early stages and does not
+yet have all the features we'd like. It will probably be extended in a close 
+future, but maintaining backwards compatibility.
+
+\section gql-syntax Syntax
+
+For simple purposes, the GQL is not very different form a SQL 'WHERE' clause 
+optionally followed by an 'ORDER BY' and/or by a 'LIMIT' clause.
+
+For example:
+    
+    $db->select("title='Finnegans wake' AND (copies>10 OR published<'2014-01-01')");
+
+will give you back all nodes having a \em title equal to "Finnegans wake" and 
+having either more tha 10 \em copies or being \em published before 2014.
+
+The first subtle difference is that in Graphene properties can be multiple, and
+thus "title='Finnegans wake'" does select any node having \em at \em least one
+title equal to "Finnegans wake" (and at least one value > 10 on the property 
+\em copies and so on).
+
+If for example I want to find all groups a user with id, let's say, 2589 belongs
+to, I can query:
+
+    "member=2589"
+
+And it will return all groups where the property members contains the value 2589,
+which is what I wanted.
+
+A second subtle difference is that in Graphene the corresponding of the SQL NULL
+value is simply that the property does not exist (has no values). So you can 
+query:
+
+    "firstName"
+
+And will get back all nodes having at least one value on the property \em firstName.
+By querying instead:
+
+    "not firstName"
+    
+You will get all nodes that don't have any first name.
+
+The third and most important difference though is that in Graphene you can 
+build paths:
+
+    "group.name='admin'"
+
+Will return all nodes having a \em group whose name is 'admin'.
+
+When you repeat a piece of path twice, the interpreter will argue you are talking 
+about the same node. For example:
+
+    "group.name='admin' and group.created<'2014-01-01'"
+
+Will return all nodes having a \em group whose name is 'admin' and that has been
+created before 2014. But sometimes you dont want this. For example:
+
+    "group.name='admin' and group.name='community'"
+
+Will probably return nothing, since it is looking for members of a group whose name
+is 'admin' \em and \em also 'community'. It these cases you are referring to two different
+groups and you can tell the interpreter by giving those groups a name:
+
+    "group#g1.name='admin' and group#g2.name='community'"
+
+Now it will return any node being a member of both groups, one bound to \em \#g1 and the
+other one bound to \em \#g2.
+
+You can reuse the name later on in the query, without having to rewrite the piece
+of path it stands for, for example:
+
+    "group#g1.name='admin' and #g1.created<'2014-01-01'"
+
+When you make a query, the node you are looking for is always bound to the name \em \#x.
+If you query:
+
+    "group=#x"
+
+It will give you back all nodes having themselves as \em group.
+Sometimes you want to write the \em \#x out always, for clarity:
+
+    "#x.group=#x"
+
+or:
+
+    "#x.title='Finnegans wake'"
+
+which doens't affect the query in any way.
+    
+The fourth (and last) peculiarity of GQL is that you have a notation saying a
+given node must be of a given type:
+
+    "User#x and Group#g and #x.group=#g and #g.name='admin'"
+
+Will give back all nodes of type \em User having a node of type \em Group as group.
+This is quite verbose, and you could reduce the query to:
+
+    "User#x and group.name='admin'
+    
+As long as in your database the property \em groups in respect to User nodes 
+always yelds Group nodes anyway.
+
+
+
+
+
 
 @page gql The Graphene Query Language
-@brief The syntax of the query language
 
 */
 
