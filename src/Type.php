@@ -89,7 +89,7 @@ different namespace.
 
 Usually type names will be interpreded (as in PHP) as relative to the namespace you
 are in, and (as in PHP) if you want to reach a type outside your namespace, you
-have to specify you are given the absolute name by prepending a '_' (in PHP it is
+have to specify you are providing an absolute name by prepending a '_' (in PHP it is
 '\\'). For example if you are in type a_SomeType and want to reach type b_SomeType,
 you'll have to call it _b_SomeType, else it will be interpreted as a_b_SomeType.
 

@@ -1,7 +1,5 @@
-# graphene
-Graph database for PHP + MySql
-
-# Tutorial
+Graphene tutorial   {#mainpage}
+=================
 
 ## Requirements
 

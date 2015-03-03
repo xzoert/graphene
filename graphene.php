@@ -50,12 +50,6 @@ Hello, and welcome to Graphene.
 */
 
 
-/**
-\mainpage Graphene Reference
-
-Welcome to the Graphene reference documentation.
-
-*/
 
 /**
 
@@ -128,6 +122,7 @@ The syntax of a property definition is:
 
     PROP_DEF := (NODE_TYPE|DATA_TYPE)[CARDINALITY] NAME ["as" ALIAS] [MASK] [FLAGS]+ ["!"]
 
+
 NODE_TYPE is the type of node that is expected as value of that property. 
 For example:
 
@@ -135,11 +130,13 @@ For example:
     
 Indicates that the \em owner property should have Person nodes as values.
 
+@sa \ref type-names
+
 For data properties (i.e. not node properties), you write the datatype, which 
 is one among following:
 
 - int
-- float
+- float                                       
 - datetime
 - string
 
@@ -151,6 +148,8 @@ has a list of values, or "{}" to indicate the property has a set of values.
 
 For example:
 
+    #### Group ####
+    
     User{} members
 
 @sa ::graphene::Prop
@@ -158,10 +157,111 @@ For example:
 The NAME is the property name. It MUST be in camel case starting with a lower
 case letter. It can also be the name of an inverse property, as for example:
 
-    Group @member
-
-
+    #### User ####
     
+    Group{} @member
+
+In these cases (as well as in others) it is convenient to add an alias to make the
+name more compehensible, like:
+
+    #### User ####
+    
+    Group{} @member as groups
+    
+Those aliases will be reflected both in the query language and in PHP.
+
+The MASK is an entry that gives you control over the access the caller has to the
+property. If you omit it, full access is implied (read+update+insert+delete).
+
+But when you start writing your own node classes, you'll soon see that there are
+properties you don't wish the caller to update by himself, or even properties you
+don't want him to see at all, as it happes with private properties for PHP classes.
+
+The MASK is a character combination of any of the following:
+
+- "r" for read
+- "i" for insert
+- "u" for update
+- "d" for delete
+- "w" for insert + update + delete
+- "f" full access (the default)
+- "n" no access at all
+
+To make a property read only, for example, you can write:
+
+    #### Bookshop ####
+    
+    int stockCounter r
+    
+Or if you want to hide it completely:
+
+    #### Bookshop ####
+    
+    int stockCounter n
+
+But there are also other combinations that can make sense, for example:
+
+    #### User ####
+    
+    string password ui
+
+Which tells that the caller can update and insert a password, but can neither
+read nor delete it.
+
+The FLAGS are any combination of the following:
+
+- "required"
+- "unique"
+- "delete cascade"
+
+The \em required flag indicates that the property is required, i.e. no node of 
+this type can exist without it. This implies that the property has to be passed
+in the initailization aruments at node creation, and that it can not be deleted
+(if if the MASK tells it can).
+
+The \em unique flag indicates that every value on this property must be different 
+than any other. For example:
+
+    #### User ####
+    
+    string email unique required
+
+Notice that in Graphene properties are shared among types, and 
+\em unique means unique in general, not just for this type. Make sure if you use
+the same property on different types to make it unique everywhere or not make it 
+unique at all. For the moment Graphene has no detection mechanism for this kind of
+inconsistency, and you might end up with errors.
+
+The \em delete \em cascade flag only makes sense on node properties. It indicates 
+that when the node is deleted, also the node(s) on the on the other side of
+the relation should be deleted.
+
+For example:
+
+    #### Person ####
+    
+    Address addres delete cascade
+
+Which will cause the \em Address to be deleted along with the \em Person.
+
+At the very end of the line, you can place an exclamation mark ("!"). This one
+indicates the property is \em frozen, so Graphene won't touch it anymore.
+
+    #### MyType ####
+    
+    string{} myProp rw !
+
+You should get accostumed to this, since it is very useful during development.
+
+Notice that freezing all properties and freezing the whole type using the
+\em \\frozen directive IS NOT the same thing. Unless you freeze the whole type,
+other properties can be added dynamically if Graphene is in \em unfrozen mode.
+
+@sa \ref freeze-unfreeze
+
+
+
+
 @page def-files Definition files
 @brief The syntax of the def(inition) files
 
