@@ -82,14 +82,14 @@ echo "Gotback: ",$gotback->email,' (',$gotback->firstName,' ',$gotback->lastName
 //////////  LOGIN //////////////
 
 // try to authenticate by email
-if( $auth=$db->um_User->authenticate($bobsEmail,$bobsPwd) ) {
+if ($auth=$db->um_User->authenticate($bobsEmail,$bobsPwd)) {
 	echo "Authenticated by email as: ",$auth->firstName,' ',$auth->lastName,PHP_EOL;
 } else {
 	throw new Exception("Something went wrong... bob is not authenticated.");
 }
 
 // try to authenticate by nickname
-if( $auth=$users->authenticate($bobsNickname,$bobsPwd) ) {
+if ($auth=$users->authenticate($bobsNickname,$bobsPwd)) {
 	echo "Authenticated by nickname as: ",$auth,PHP_EOL;
 } else {
 	throw new Exception("Something went wrong... bob is not authenticated.");
@@ -104,7 +104,7 @@ echo "Token: ",$token,PHP_EOL;
 
 // get back the user by its token
 $logged=$users->getLoggedUser($token);
-if( $logged ) {
+if ($logged) {
 	echo "Logged: ",$logged,PHP_EOL;
 } else {
 	throw new Exception("Something went wrong... bob is not logged in.");
@@ -113,7 +113,7 @@ if( $logged ) {
 // try logout
 $bob->logout();
 
-if( $users->getLoggedUser($token) ) echo "Ooops... Bob is still logged in...",PHP_EOL;
+if ($users->getLoggedUser($token)) echo "Ooops... Bob is still logged in...",PHP_EOL;
 else echo "Ok, Bob has logged out.",PHP_EOL;
 
 // re-login
@@ -128,7 +128,7 @@ echo "Regot token: ",$bob->login(),PHP_EOL;
 echo "Wait two seconds and check if it has been refreshed.",PHP_EOL;
 sleep(2);
 $logged=$users->getLoggedUser($token);
-if( $logged ) {
+if ($logged) {
 	echo "Ok, Bob is still logged in.",PHP_EOL;
 } else {
 	throw new Exception("Something went wrong... bob not logged in anymore.");
@@ -137,7 +137,7 @@ if( $logged ) {
 echo "Wait four seconds and check if the session expired.",PHP_EOL;
 sleep(4);
 $logged=$users->getLoggedUser($token);
-if( !$logged ) {
+if (!$logged) {
 	echo "Ok, Bob's session has expired.",PHP_EOL;
 } else {
 	throw new Exception("Something went wrong... bob is still logged in.");
@@ -182,7 +182,7 @@ $superadmin->parentGroup=$admin;
 try {
 	$admin->parentGroup=$subGroup;
 	echo "Ooops... no loop detection?",PHP_EOL;
-} catch( \Exception $e ) { 
+} catch (\Exception $e) { 
 	echo "Ok, loop has been detectd.",PHP_EOL;	
 }
 
@@ -205,22 +205,22 @@ $alice->subscribe("subgroup");
 
 
 // check out the recursive search functions...
-foreach( $admin->getMembersRecursive() as $u ) {
+foreach ($admin->getMembersRecursive() as $u) {
 	echo $u," is member of 'admin'.",PHP_EOL;
 }
-foreach( $superadmin->getMembersRecursive() as $u ) {
+foreach ($superadmin->getMembersRecursive() as $u) {
 	echo $u," is member of 'superadmin'.",PHP_EOL;
 }
-foreach( $subGroup->getMembersRecursive() as $u ) {
+foreach ($subGroup->getMembersRecursive() as $u) {
 	echo $u," is member of 'subgroup'.",PHP_EOL;
 }
-foreach( $groups->getByPrivilege("manage-users") as $g ) {
+foreach ($groups->getByPrivilege("manage-users") as $g) {
 	echo "members of group '",$g,"' can manage users",PHP_EOL; 
 }
-foreach( $groups->getByPrivilege("change-database-params") as $g ) {
+foreach ($groups->getByPrivilege("change-database-params") as $g) {
 	echo "members of group '",$g,"' can change the database params",PHP_EOL; 
 }
-foreach( $users->getByPrivilege("change-database-params") as $u ) {
+foreach ($users->getByPrivilege("change-database-params") as $u) {
 	echo "User '",$u,"' can change the database params",PHP_EOL; 
 }
 
@@ -241,7 +241,7 @@ $db->commit();
 
 // check the node count is the same as at the beginning
 $nodeCount2=$db->select()->count();
-if( $nodeCount!=$nodeCount2 ) {
+if ($nodeCount!=$nodeCount2) {
 	echo "Ooops... node count is not the same...",PHP_EOL;	
 } else {
 	echo "Ok, final node count is ",$nodeCount2,PHP_EOL;

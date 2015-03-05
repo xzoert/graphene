@@ -83,7 +83,7 @@ of coding your write blocks in a structure like the following:
     try {
         .... do something ...
         $db->commit();
-    } catch( \Exception $e ) {
+    } catch (\Exception $e) {
         $db->rollback();
         throw $e;
     }
@@ -115,7 +115,7 @@ Or, if you want to initialize data fields:
         ...
     ));
 
-And for getting back a node of a given type by it's identifier:
+And for getting back a node of a given type by its identifier:
 
     $myNode=MyType(15627);
 
@@ -175,13 +175,11 @@ class Connection
     private $id;
     private $untypedNode;
 
-    /**
-    @brief dummy.
-    */
-    function dummy() {}
     
     /**
-    @brief Add other classpaths.
+    @brief Adds more classpaths.
+    
+    Adds more classpaths.
     
     @param $path 
         A string with the directory path.
@@ -280,7 +278,9 @@ class Connection
     }
     
     /**
-    @brief Close the connection.
+    @brief Closes the connection.
+    
+    Closes the connection.
     
     On web pages you don't really need it, since at page end all resources will
     be freed anyway. 
@@ -297,6 +297,8 @@ class Connection
     /**
     @brief Tells if the connection is frozen or not.
     
+    Tells if the connection is frozen or not.
+    
     @retval int
         1 if frozen, 0 if unfrozen
     
@@ -306,6 +308,8 @@ class Connection
     
     /**
     @brief Freezes the database.
+    
+    Freezes the database.
     
     This will \em freeze the connection. The connection is frozen by default, so
     unless you have unfrozen it before, this call is not necessary.
@@ -318,6 +322,8 @@ class Connection
     /**
     @brief Unfreezes the database.
     
+    Unfreezes the database.
+    
     By default a connection is frozen, call this function to unfreeze it.
     
     @sa \ref freeze-unfreeze
@@ -326,6 +332,8 @@ class Connection
 
     /**
     @brief Begins a transaction.
+    
+    Begins a transaction.
     
     @sa \ref transactions
     */
@@ -338,6 +346,8 @@ class Connection
     /**
     @brief Commits the transaction.
 
+    Commits the transaction.
+    
     @sa \ref transactions
 
     */
@@ -352,6 +362,8 @@ class Connection
     /**
     @brief Rolls back the transaction.
 
+    Rolls back the transaction.
+    
     @sa \ref transactions
 
     */
@@ -366,10 +378,12 @@ class Connection
     /**
     @brief Shortcut for getType().
     
+    Shortcut for getType().
+    
     @param $n 
         The type name.
     
-    @return Type
+    @retval Type
         The requested type
     
     This allows you to do:
@@ -399,13 +413,15 @@ class Connection
     /**
     @brief Shortcut for creating / getting nodes from types.
     
+    Shortcut for creating / getting nodes from types.
+    
     @param $n 
         The type name
     @param $args 
         Either nothing or an associative array to create a new node
     or an identifier to get an existing one.
     
-    @return Node
+    @retval Node
         The requested node.
     
     This allows you to do things like:
@@ -441,6 +457,8 @@ class Connection
     /**
     @brief Returns a node type by name.
     
+    Returns a node type by name.
+    
     @param $name 
         The type name
     @param $phpns 
@@ -448,8 +466,22 @@ class Connection
     useful only if ypu are extending a node and plan to be inherited from a different
     namespace than yours... so quite advanced stuff.
     
-    @return Type
+    @retval Type
         The requested type
+        
+    The optional $phpns argument allows you to pass your PHP namespace and get
+    a type by its relative name to that namespace, for example if you are
+    in namespace \em abc and call:
+    
+        $db->getType('SomeType',__NAMESPACE__);
+    
+    It will return 'abc_SomeType'. This is handy when your class has to be inherited
+    from other namespaces.
+    
+    @sa \ref type-names
+    @sa \ref inheritance
+    @sa \ref node-inheritance
+    
     
     */
     function getType($name,$phpns=null) 
@@ -471,6 +503,8 @@ class Connection
     /**
     @brief Performs a query.
     
+    Performs a query.
+    
     @param $query 
         The query
     @param $params 
@@ -478,7 +512,7 @@ class Connection
     a single value if there is only one '?', or an array containing several values
     if there are more, in the same order as they appear in the query.
     
-    @return ResultSet
+    @retval ResultSet
         The query result.
     
     @sa \ref gql
@@ -507,7 +541,9 @@ class Connection
     /**
     @brief Gives back the \em raw MySql connection.
     
-    @return mysqli
+    Gives back the \em raw MySql connection.
+    
+    @retval mysqli
         The raw mysqli connection.
     
     */
@@ -519,10 +555,12 @@ class Connection
     /**
     @brief Gives back a node by its id.
     
+    Gives back a node by its id.
+    
     @param $id 
         The identifier of the node
     
-    @return Node
+    @retval Node
         The requested node.
     
     */

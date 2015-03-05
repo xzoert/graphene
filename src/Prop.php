@@ -2,8 +2,100 @@
 
 namespace graphene;
 
-/**
+/** 
 @brief A property.
+
+A node property. 
+
+Propeties in Graphene are lists of values, although on the definition files you 
+can express restrictions on cardinality and repetitions.
+
+@sa \ref def-files
+
+Furthermore in Graphene properties are not specific to the declaring type, but are
+shared among types. This makes that if, for example, you have three types like
+"Book", "Person" and "Video" and all three declare a property name "url", you
+can get any of them by querying:
+
+    $db->select("url=?",$myurl);
+
+The Prop class has a set of functions that allow you to treat the property either
+as a \em set (a list without repetitions) or as a list (where repetitions are
+allowed). 
+
+Single valued properties are normally accessed directly through the Node object.
+
+Insert / update:
+
+    $node->myProp=$value;              # OR   $node->set("myProp",$value);
+
+Get:
+
+    $value=$node->myProp;              # OR   $value=$node->get("myProp");
+
+Delete:
+
+    $node->myProp=null;                # OR   $node->set("myProp",null);
+
+
+If you want to access a property as a list, you can use the regular PHP notation
+for arrays, or call the corresponding functions.
+
+Insert / update:
+
+    $myProp[]=$value;                  # OR   $myProp->append($value);
+    $myProp[1]=$value;                 # OR   $myProp->setAt($value,1);
+    $myProp->prepend($value,0);
+    
+Reset all values:
+
+    $myProp->reset(array(
+      $value1,
+      $value2
+    ));                                # OR   $node->myProp=array($value1,$value2);  
+
+Get one value:
+
+    $value=$myProp[1];                 # OR   $value=$myProp->getAt(1);
+
+Remove one value:
+
+    unset($myProp[1]);                 # OR   $myProp->unsetAt(1);
+    
+Loop over all values:
+    
+    foreach ($myProp as $value) {}
+    
+Count:
+    
+    $count=count($myProp)              # OR $count=$myProp->count();
+    
+Delete all values:
+    
+    $myProp->delete();                 # OR   $node->myProp=null;
+    
+
+But what you usually want is not a list but a \em set, without repetitions. For
+example there is no point in adding the same User twice to a given Group, or the same
+Tag more than once to a given Article. For all these cases there is a second more
+convenient set of methods.
+
+Add a value if not present:
+
+    $myProp->add($value);
+    
+Remove a value if present:
+    
+    $myProp->remove($value);
+    
+Check if a value is present:
+
+    $isThere=$myProps->contains($value);
+
+For looping over, deleting and counting, sets and lists are the same.
+
+
+
 */
 class Prop implements \ArrayAccess, \Iterator, \Countable  {
     
@@ -468,7 +560,7 @@ class Prop implements \ArrayAccess, \Iterator, \Countable  {
 
     
     /**
-    @brief Join all values to a string using a given separator.
+    @brief Joins all values to a string using a given separator.
     */
     public function join($sep=',') {
         $s='';

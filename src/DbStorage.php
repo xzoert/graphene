@@ -771,7 +771,7 @@ class CachedNode {
     
 }
 
-class MemIt extends ResultSet {
+class MemIt extends StorageIterator {
     
     private $storage;
     private $cur;

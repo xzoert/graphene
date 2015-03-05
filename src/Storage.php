@@ -244,10 +244,7 @@ abstract class Storage {
     
 }
 
-/**
-@brief The result of a query.
-*/
-abstract class ResultSet implements \ArrayAccess, \SeekableIterator, \Countable {
+abstract class StorageIterator implements \ArrayAccess, \SeekableIterator, \Countable {
 
     /*
 

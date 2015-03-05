@@ -435,7 +435,7 @@ class MySql extends DbStorage {
     
 }
 
-class MySqlIterator extends ResultSet {
+class MySqlIterator extends StorageIterator {
     
     private $rs;
     private $storage;

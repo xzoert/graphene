@@ -77,16 +77,6 @@ To commit / rollback use:
      $db->commit();
      $db->rollback();
 
-A typical write block is thus made like this:
-
-     $db->begin();
-     try {
-        // .... do something ...
-        $db->commit();
-    } catch( \Exception $e ) {
-        $db->rollback();
-        throw $e;
-    }
 
 ## Writing data
 
@@ -151,52 +141,6 @@ Let's add some more objects (or *nodes*) to our story:
 
 So... we have created two persons: John Smith and James Joyce. The first one is the proud owner of *John's bookshop* (since 1986!). The second one is a famous book writer and his celebrated novel "Finnegans wake" is sold in John's bookshop. This might have inspired John to write a book on his turn about how to run a bookshop, which is the only thing he really knows something about, and of course this one is also sold in his bookshop. 
 
-We used on purpose various ways to set properties, and of course there are some more. 
-
-Properties can represent single values, in which case you set and get them as normal PHP object properties:
-
-     // SET
-     $john->firstName="John";           // OR   $john->set("firstName","John");
-     // GET
-     echo $john->firstName;             // OR   echo $john->get("firstName");
-     // DELETE
-     $john->firstName=null;             // OR   $john->set("firstName",null);
-
-But as well they can represent lists, in which case you can access them as if they were PHP lists (arrays with numeric indexes):
-
-     $books=$bookshop->books;
-     // INSERT / UPDATE
-     $books[]=$fwake;              // OR   $books->append($fwake);
-     $books[1]=$johnsbook;         // OR   $books->setAt($johnsbook,1);
-     $books->prepend($fwake,0);
-     // RESET
-     $books->reset(array(
-          $fwake,
-          $johnsbook
-     ));                           // OR   $bookshop->books=array($fwake,$johnsbook);  
-     // GET
-     echo $books[1]->title;        // OR   echo $books->getAt(1)->title;
-     // REMOVE
-     unset($books[1]);             // OR   $books->unsetAt(1);
-     // LOOP
-     foreach( $books as $book ) {}
-     // COUNT
-     echo $books->count();
-     // DELETE ALL
-     $books->delete();             // OR   $bookshop->books=null;
-     
-But in many cases what you really want is not a list but what is called a *set*, i.e. a collection without repetitions, which is probably our case in the bookshop books: there is no point in adding a book twice, unless we want to use the number of occurrences as our in-stock counter, what I'd strongly disencourage. When you deal with sets, you'll rather like to use a third series of property functions:
-
-     $books=$bookshop->books;
-     // ADD
-     $books->add($fwake);          // ADD IF NOT THERE
-     // REMOVE
-     $books->remove($fwake);       // REMOVE IT IF THERE
-     // CHECK
-     echo "Does the set contain 'Finnegans wake'? ",$books->contains($fwake)?"yes":"no";
-
-For looping over, deleting and counting sets and lists are the same.
-
 Every property can be of one of the following data types:
 
 - int 
@@ -211,22 +155,6 @@ To get back all bookshops *owned by* John, for example, you can do:
 
      foreach( $john->get('@owner') as $bookshop ) { }
 
-You can set multiple properties at node creation passing an associative array:
-
-     $myObject=$db->MyType(array(
-          "prop1"=>"String value",
-          "prop2"=>5.8,
-          "prop3"=>array(1,2,3)
-     ));                           
-     // OR   $myObject=$db->getType('MyType')->newNode(array(...))
-
-And do the same later on using the *update* function:
-
-     $myObject->update(array(
-          "prop1"=>"String value",
-          "prop2"=>5.8,
-          "prop3"=>array(1,2,3)
-     ));
 
 ## Querying
 
@@ -305,10 +233,6 @@ In english:
           
 More briefly: find all persons that own a bookshop in which a book written by their owns is sold as well as at least one book written by a famous author.
 
-Notice that in this query we do not say that #book and #book2 are not the same book, they could. If we do not want this, we'll have to add:
-
-     and #book!=#book2
-
 Of course the result in our dataset will be again John Smith, since he meets all the conditions.
 
      
@@ -373,30 +297,6 @@ Let's see what Graphene did in *Book.def*:
 
 As you can notice, Graphene thinks the title and author are required fields. This is because every time we created a *Book* in our example these two properties have been passed as initialization arguments. Is it right or is he not? Up to you to decide... or leave it as it is and, if you happen to create a Book without any of these arguments, Graphene will relax the constraint unless you freeze.
 
-This is an example of a quite refined definition file you will find in the *UserManager* example in the graphene *examples* directory.
-
-     ##### um_User #####
-     
-     \frozen
-     
-     string email required unique !
-     
-     # The password can be update and set, but can not be read, so no amateur
-     # programmer has the chance to print it out to the public by mistake.
-     string password ui required !
-     
-     # The nickname can be used to login as an alternative to the email, and has 
-     # the advantage that you can safely print it out on a web page without violating
-     # the users privacy.
-     string nickname unique !
-     
-     # Following two are 'private' and I give no direct access to them (the little 'n').
-     string token n unique !
-     datetime tokenExpires n !
-     
-     # The subscribed groups.
-     Group{} groups !                                    
-     
 
 You can also declare your type as being the subtype of another one (i.e. an extension), as in this one again picked up from the *UserManager* example:
 

@@ -50,7 +50,7 @@ or, with data initialization:
 
     $node=$myType->newNode(array("param1"=>"value1","param2"=>"value2",...));
 
-Getting back a node by it's identifier:
+Getting back a node by its identifier:
 
     $node=$myType->getNode($id);
 
@@ -75,8 +75,8 @@ The names of node types in Graphene MUST begin with an uppercase letter, as
 in 'Person', 'Bookshop' and so forth. 
 
 Furthermore Graphene supports namespaces, and every type can live in a given 
-namespace. While in PHP the namespace separator is '\\', as in \em graphene\\Type
-for example, in the Graphene syntax namespaces are separated by '_', like
+namespace. While in PHP the namespace separator is '\\', as in "graphene\Type"
+for example, in the Graphene syntax namespaces are separated by '_', as
 in "graphene_Type". The namespaces MUST be in lower case. 
 
 By default the properties of a gven type will be assigned to its namespace, so
@@ -89,14 +89,15 @@ different namespace.
 
 Usually type names will be interpreded (as in PHP) as relative to the namespace you
 are in, and (as in PHP) if you want to reach a type outside your namespace, you
-have to specify you are providing an absolute name by prepending a '_' (in PHP it is
-'\\'). For example if you are in type a_SomeType and want to reach type b_SomeType,
-you'll have to call it _b_SomeType, else it will be interpreted as a_b_SomeType.
+have to specify you are providing an absolute name by prepending a '_' (as in PHP you
+have to prepend '\\'). For example if you are in type a_SomeType and want to reach 
+type b_SomeType, you'll have to call it _b_SomeType, else it will be interpreted 
+as a_b_SomeType.
 
 \section data-structure Data structures
 
-The data structures of the node types are defined in a set of corresponding 
-.def files located in the \em definitions directory in the Connection's 
+The data structure of a node type is defined in a corresponding 
+.def file, located in the \em definitions directory in the Connection's 
 classpath(s). Within this directory, every namespace is a subdirectory 
 (recursively). So for example the definition file of a type whose full name is
 'ab_cd_MyType' will be:
@@ -110,7 +111,7 @@ For a full description of the definition files syntax, see \ref def-files.
 By default the class used by Graphene is the Type class itself. But you can provide
 for each of your types a custom class extending graphene\\Type.
 
-The class must be located in the \em classes directory withn the Connection's 
+The class must be located in the \em classes directory within the Connection's 
 classpath(s). The name of the class must be the name of the type followed by
 'Type', and the file name must be called the same way.
 
@@ -122,9 +123,9 @@ And within this file there must be the corresponding PHP class:
 
     <?php
     
-    namespace ab\\cd;
+    namespace ab\cd;
     
-    class PersonType extends \\graphene\\Type {
+    class PersonType extends \graphene\Type {
         
     
     }
@@ -134,6 +135,8 @@ sense since you don't want your PHP classes to have name conflicts either.
 
 From now on Graphene will use your class instead of the Type class, and any public
 method you implement will be available to the caller.
+
+@sa \ref node-inheritance
 
 
 */
@@ -148,7 +151,9 @@ class Type
     /**
     @brief Gives back the type's namespace (in graphene notation).
     
-    @return string
+    Gives back the type's namespace (in graphene notation).
+    
+    @retval string
         The namespace in Graphene notation.
         
     @sa \ref type-names
@@ -158,7 +163,9 @@ class Type
     /**
     @brief Gives back to type's name.
     
-    @return string
+    Gives back to type's name.
+    
+    @retval string
         The name in Graphene notation.
     
     @sa \ref type-names
@@ -168,7 +175,9 @@ class Type
     /**
     @brief Gives back to type's database Connection.
     
-    @return Connection
+    Gives back to type's database Connection.
+    
+    @retval Connection
         The connection this type is bound to.
         
     */
@@ -177,10 +186,18 @@ class Type
     /**
     @brief Gives back a type by name relatively to this type's namespace.
     
+    Gives back a type by name relatively to this type's namespace.
+    
+    @param $n
+        The type name.
+        
+    @param $phpns
+        The actual PHP namespace you are calling from.
+        
     This is a handy function when you write your own type class (see \ref
     inheritance). It gives you back a type relatively to your namespace. 
     
-    The second parameter is useful to ensure that you get the right namespace
+    The $phpns argument is useful to ensure that you get the right namespace
     in the case your class has been extended by another one in a different 
     namespace. Suppose for example your class is 'a_SomeType' and someone
     created a class 'b_SomeOtherType' extending yours. If the caller invokes
@@ -190,21 +207,16 @@ class Type
         $this->getType('YetAnother');
         
     you will get back b_YetAnother instead of a_YetAnother, which is probably
-    what you were looking for. So the safest way to call this function is by
-    adding your namespace:
+    what you were looking for. So if you want your class to be extended from
+    others outside your namespace, the safe way to go is calling:
     
         $this->getType('YetAnother',__NAMESPACE__);
         
-    which will always give you back a_YetAnother. But this is only needed if you
-    foresee your class might be extended by others.
+    which will always give you back a_YetAnother. .
     
-    @param $n
-        The type name.
-        
-    @param $phpns
-        The actual PHP namespace you are calling from.
-        
     @sa \ref inheritance
+    @sa \ref type-names
+    
     */
     public function getType($n,$phpns=null) 
     {
@@ -236,8 +248,10 @@ class Type
     /**
     @brief Initialization hook.
     
+    Initialization hook.
+    
     This method will be invoked when the class is instantiated and replaces in 
-    some sense the cosntructor. You can overload it if you have to do some 
+    some sense the constructor. You can overload it if you have to do some 
     initialization in your custom type class.
     
     Notice that a node type will be instantiated only once for each connection,
@@ -249,8 +263,16 @@ class Type
     
 
     /**
-    @brief Create a new node of this type.
+    @brief Creates a new node of this type.
     
+    Creates a new node of this type.
+    
+    @param $args
+        An array containing the ihe initialization arguments
+        
+    @retval Node
+        The new node.
+        
     If no argument is passed, an empty node is created. Else you can pass
     an associative array having as keys the property names and as values
     the values to set. If a property is required, it has to be passed at creation
@@ -260,11 +282,7 @@ class Type
     In unfrozen mode, if you \em always pass a given property among the initialization
     arguments, Graphene will set the \em required flag.
     
-    @param $args
-        An array containing the ihe initialization arguments
     
-    @return Node
-        The new node.
         
     */
     public function newNode($args=null) 
@@ -326,6 +344,18 @@ class Type
     /**
     @brief Gives back the node having a given value on a given property.
     
+    Gives back the node having a given value on a given property.
+    
+    @param $field
+        The name of the property.
+        
+    @param $value
+        The value of the property.
+        
+    @retval Node
+        The first node of this type having that value on that property, or 
+        \em null if not found.
+        
     This one is useful if you have unique properties, such as the email of a 
     person or the tag name of a tag and so forth. It will return the first matching
     node of this type. 
@@ -334,14 +364,6 @@ class Type
     it will check if if it is really unique and in this case set the \em unique 
     flag to the property definition.
     
-    @param $field
-        The name of the property.
-        
-    @param $value
-        The value of the property.
-        
-    @return Node
-        The first node of this type having that value on that property.
     
     */
     public function getBy($field,$value) 
@@ -384,12 +406,14 @@ class Type
     /**
     @brief Tells if the type is frozen.
     
-    A type is frozen if the Connection is frozen or if the definition file contains
-    the '\\frozen' directive.
+    Tells if the type is frozen.
     
     @retval int
         1 if frozen, 0 if not
         
+    A type is frozen if the Connection is frozen or if the definition file contains
+    the '\\frozen' directive.
+    
     @sa \ref def-files
     
     @sa \ref freeze-unfreeze
@@ -416,10 +440,12 @@ class Type
     /**
     @brief Gives back a node by id.
     
+    Gives back a node by id.
+    
     @param $id
         The node identifier.
         
-    @return Node
+    @retval Node
         The requested node.
         
     If the node is not found or is not of this type, an error is thrown.
@@ -641,6 +667,8 @@ class Type
     
     /**
     @brief Performs a query on the nodes of this type.
+    
+    Performs a query on the nodes of this type.
     
     @param $query
         The query.

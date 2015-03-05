@@ -24,7 +24,7 @@ $db=graphene::open(array(
 ));
 
 // open a <pre> tag if called via HTTP
-if( isset($_SERVER['HTTP_HOST']) ) echo '<pre>';
+if (isset($_SERVER['HTTP_HOST'])) echo '<pre>';
 
 
 

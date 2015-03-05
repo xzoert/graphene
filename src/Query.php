@@ -169,7 +169,7 @@ class Query {
         }
         $stmt->execute();
         $stmt->store_result();
-        return new QueryIterator($this->db,$this->type,$stmt);
+        return new ResultSet($this->db,$this->type,$stmt);
     }
     
     function orderBy() {
@@ -448,7 +448,7 @@ class Query {
             $hash=$r[4];
             $info=new QueryStep();
             $info->predName='graphene_type';
-            $info->fullName='grahene_type';
+            $info->fullName='graphene_type';
             $info->type='string';
             if( array_key_exists($hash,$this->steps) ) {
                 $step=$this->steps[$hash];
@@ -541,8 +541,11 @@ class Query {
     
 }
 
+/**
+@brief The result of a query.
+*/
 
-class QueryIterator  implements \ArrayAccess, \SeekableIterator, \Countable {
+class ResultSet  implements \ArrayAccess, \SeekableIterator, \Countable {
     
     private $stmt;
     private $db;

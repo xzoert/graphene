@@ -17,7 +17,8 @@ require_once 'init.php';
 /**
 Creation of the test data set.
 */
-function createData($db) {
+function createData($db) 
+{
 
 	echo "Creating data set.... ";
 	
@@ -98,10 +99,10 @@ try {
 	
 	echo 'took: ',(microtime(true)-$t0),PHP_EOL,PHP_EOL;
 	
-	if( isset($_SERVER['HTTP_HOST']) ) echo '</pre>';
+	if (isset($_SERVER['HTTP_HOST'])) echo '</pre>';
 	
 	
-} catch( Exception $e ) {
+} catch (Exception $e) {
 	if( $db ) $db->rollback();
 	throw $e;
 }
