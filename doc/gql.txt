@@ -1,0 +1,112 @@
+/**
+
+\section gql-syntax Syntax
+
+For simple purposes, the GQL is not very different form a SQL 'WHERE' clause 
+optionally followed by an 'ORDER BY' and/or by a 'LIMIT' clause.
+
+For example:
+    
+    title='Finnegans wake' AND (copies>10 OR published<'2014-01-01') ORDER BY published DESC LIMIT 0,5
+
+This will give you back the first 5 nodes having a \em title equal to "Finnegans wake" and 
+having either more tha 10 \em copies or being \em published before 2014, ordered
+from the latest to the earliest.
+
+The first subtle difference is that in Graphene properties can be multiple, and
+thus "title='Finnegans wake'" does select any node having \em at \em least one
+title equal to "Finnegans wake" (and at least one value > 10 on the property 
+\em copies and so on).
+
+If for example I want to find all groups a user with id 2589 belongs
+to, I can query:
+
+    member=2589
+
+And it will return all nodes where the property members contains the value 2589,
+which is what I wanted.
+
+A second subtle difference is that in Graphene the corresponding of the SQL NULL
+value is simply that the property does not exist (has no values). So you can 
+query:
+
+    firstName
+
+And will get back all nodes having at least one value on the property \em firstName.
+By querying instead:
+
+    not firstName
+    
+You will get all nodes that don't have any \em firstName.
+
+The third and most important difference though is that in Graphene you can 
+build paths:
+
+    group.name='admin'
+
+Will return all nodes having a \em group whose name is 'admin'.
+
+When you repeat a piece of path twice, the interpreter will argue you are talking 
+about the same node. For example:
+
+    group.name='admin' AND group.created<'2014-01-01'
+
+Will return all nodes having a \em group whose name is 'admin' and that has been
+created before 2014. But sometimes that's not what you want. For example:
+
+    group.name='admin' AND group.name='community'
+
+This will probably return nothing, since it is looking for members of a group whose name
+is 'admin' \em and \em also 'community'. In these cases you are referring to two different
+groups and you can tell the interpreter by giving those groups a name:
+
+    group#g1.name='admin' AND group#g2.name='community'
+
+Now it will return any node being a member of both groups, one bound to \em \#g1 and the
+other one bound to \em \#g2.
+
+You can reuse the name later on in the query, without having to rewrite the piece
+of path it stands for, for example:
+
+    group#g1.name='admin' AND #g1.created<'2014-01-01'
+
+When you make a query, the node you are looking for is always bound to the name \em \#x.
+So for example:
+
+    group=#x
+
+Will give you back all nodes having themselves as \em group.
+Sometimes you want to write the \em \#x out always, for clarity:
+
+    #x.group=#x
+
+or:
+
+    #x.title='Finnegans wake'
+
+which doesn't affect the query in any way.
+    
+The fourth (and last) peculiarity of GQL is that you have a special construct to 
+tell the interpreter a given node must be of a given type:
+
+    User#x and Group#g AND #x.group=#g and #g.name='admin'
+
+Will give back all nodes of type \em User having a node of type \em Group as group
+whose name is 'admin'.
+This is quite verbose, and you could reduce the query to:
+
+    User#x AND group.name='admin'
+    
+As long as in your database the property \em groups in respect to User nodes 
+always carries Group nodes anyway.
+
+
+
+
+
+
+@page gql The Graphene query language
+@brief Syntax and usage.
+
+*/
+
