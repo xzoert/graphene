@@ -348,5 +348,7 @@ As well as your node type by calling:
      $this->type();
 
 
+## What's next
 
+[Read the whole documentation](http://www.graphenelib.org/docs/annotated.html).
 
