@@ -350,5 +350,5 @@ As well as your node type by calling:
 
 ## What's next
 
-[Read the whole documentation](http://www.graphenelib.org/docs/annotated.html).
+[Read the whole documentation](http://graphenelib.org/docs/annotated.html).
 
